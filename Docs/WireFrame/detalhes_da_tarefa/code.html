@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Toto - Kanban</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#facc15",
+              "primary-dark": "#eab308",
+              "primary-text": "#422006",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }.kanban-container {
+            scrollbar-width: thin;
+            scrollbar-color: #d1d5db #f3f4f6;
+        }
+        .kanban-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .kanban-container::-webkit-scrollbar-track {
+            background: #f3f4f6;
+            border-radius: 4px;
+        }
+        .kanban-container::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background-light font-display">
+<div class="flex h-screen w-full flex-col">
+<header class="flex h-16 shrink-0 items-center justify-between border-b border-gray-200 bg-white px-4 sm:px-6">
+<div class="flex items-center gap-2">
+<img alt="Toto Logo" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChCFmudXINEQLp40zUaa76ozUZzLNzPXl30fMHrlCqKAz6_o7ReyjwqgOoTqixGCos8IvaAr5qRyuqAsxjhx01NmlPCTVQPBBMWGuDymhEkBghtvzgxoQF-CrMBCvbJ3G8md9_AjHwKbNSK_2UmOYlKw0AiUpZcoAtjQOzK0jWq6uvY9_Etnr6LwB-3Zk7OKALJoUkUgGSndGTCeC1D-MECNVWeqoJqOQubbdLncW1lBo2px2SqiR7heJSFXvrDESJ-feOOPV_eiI"/>
+<span class="text-2xl font-bold text-gray-800">Toto</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative rounded-full p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button>
+<img alt="Avatar do usuário" class="h-9 w-9 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxsQjxn3ONfEEIQ6E6WFB3Dz7dkYIpScH23oQqZToeWl8vO2efl7Id057nMnnGUAl9qskSTe8YTIBh2IgLe5Jg4XQCZTt3gNOga6iqPtbuDRhKhNQIwndbBb6-LVk9Ey_eHprKUbKfNfmyo5PaiR-6iickW7NLdTnjn8axx0Hip4AVUOzD4SxvHYseHYL-hHr8z8XpZYjquvLFXwrTu-jKj91FlpyZGyJq9bA3L21GPPRdzm8UeEKhpOiRZ7ci-jRV_HhBx-5kmOY"/>
+</button>
+</div>
+</header>
+<main class="flex flex-1 flex-col overflow-hidden">
+<div class="shrink-0 border-b border-gray-200 bg-white px-4 py-3 sm:px-6">
+<div class="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
+<h1 class="text-xl font-semibold text-gray-900">Projeto Alpha</h1>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 rounded-md bg-white px-3 py-1.5 text-sm font-medium text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+<span class="material-symbols-outlined text-base">filter_list</span>
+                            Filtros
+                        </button>
+<button class="flex items-center gap-2 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-text hover:bg-primary-dark">
+<span class="material-symbols-outlined text-base">add</span>
+                            Nova Tarefa
+                        </button>
+</div>
+</div>
+</div>
+<div class="flex flex-1 overflow-x-auto overflow-y-hidden bg-background-light p-4">
+<div class="kanban-container flex h-full grow gap-6">
+<div class="flex w-80 shrink-0 flex-col rounded-lg bg-gray-100">
+<div class="flex items-center justify-between p-3">
+<h2 class="font-semibold text-gray-700">A Fazer</h2>
+<span class="text-sm font-medium text-gray-500">3</span>
+</div>
+<div class="flex flex-col gap-3 overflow-y-auto p-3">
+<div class="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md">
+<p class="font-medium text-gray-800">Desenvolver a API de autenticação</p>
+<div class="mt-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="rounded-full bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-800">API</span>
+</div>
+<img alt="Avatar do membro da equipe" class="h-6 w-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-3ooyI3pqCHCR5H9uquDmIQndYBD9mOjrMFZLW4w452lSx4R86QCKIYll54s_I5PzAE0JaCw2Oj4SAzHloVEF0n0z9Dooj27XKp2_Ts-PMeDsjb6uVxpt8gjX4FWD6evDnsAKSIRIXbnlvQvvz11r07eJkywfsz83pWLehus7Z411VVjLHAm9g4W16SuKk91Atjp7dSmSJS6ruC7A0UQXQ2ug-imcN6vP2YIttn5M5gcLn-iiyu_p9v2WEb0VviYdkeDRXH5qE6c"/>
+</div>
+</div>
+<div class="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md">
+<p class="font-medium text-gray-800">Configurar ambiente de staging</p>
+<div class="mt-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="rounded-full bg-purple-100 px-2 py-0.5 text-xs font-semibold text-purple-800">DevOps</span>
+</div>
+<img alt="Avatar do membro da equipe" class="h-6 w-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1M2R2AfXbwlAffv7n_B70FZwm-pphCrsH5MuJPcaMkSrnXaQi1kBrGry6UG0V_oYYqyUSGeoICl1ag1HwLP-ORPtZuHGB27A2EyKEYcgEtnEQtD4IUxCPxm-Sk67YN5a5h8CKfoGWQ4CmH6gxXinZSLpHvxcM91PXGV2PNYveQ58IoyPMOKFrgHh4IkflvMXPzG8nE6fscEdIY0dlyxCXvhwwNEViLqky3698qsZVa4NhmeQ7So_8GcYvYT9KGK4CeBCAhFHT_MQ"/>
+</div>
+</div>
+</div>
+</div>
+<div class="flex w-80 shrink-0 flex-col rounded-lg bg-gray-100">
+<div class="flex items-center justify-between p-3">
+<h2 class="font-semibold text-gray-700">Em Progresso</h2>
+<span class="text-sm font-medium text-gray-500">2</span>
+</div>
+<div class="flex flex-col gap-3 overflow-y-auto p-3">
+<div class="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md">
+<p class="font-medium text-gray-800">Finalizar o design da nova landing page</p>
+<div class="mt-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-800">Design</span>
+<span class="rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-semibold text-yellow-800">Urgente</span>
+</div>
+<div class="flex -space-x-2">
+<img alt="Avatar do membro da equipe 1" class="h-6 w-6 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzwl9Ven3vsqAwqLkXdXhPOBIwH-v9dgjwUIFZ3FhEb8fFlLkLHpK5fVRVAE6Wl1jJ0PVOYDKep3uER6zsM0wE98bIdkNAFWJJEBXThtZV3HPdsCwwVTrOXbgIBwOtWqnW9KZz2FiL8tKwEH5jxBckex3HXK7z56X9QtWIYoj7S001ULdSGAXMJd0V_iG8HUn8z7n3qfzGDBao6IB1cXymrlWbSeSfdcAT1FKTaFrGG0tgPdhMnMMxD5_xko4Ha6R--nEr0y6bWEk"/>
+<img alt="Avatar do membro da equipe 2" class="h-6 w-6 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDEFmCyHnE_PneULdfCOt2_HzksshnCqNSvdNsTQ9TnPQQr6zSKkTthLNZthG5SR4LH4LsFWji3cHq9x_4aFGRwT_i714KpUJRFoXBSot9vFoevCRQhY482YqP4NdNH5IZ_u5NNrxBtNLo4v1O6PNcgj74G88zRXHFlTmEMCmmPuKnj2UhDsAkmEpcMpfGzsKQh-VRTBh8GYjB6HFCK8Vn2B23hxdmx3L0uTC6M-VfiyaOi3O6jTEx4T_zown4HS9Bd0ty_8mod3k"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex w-80 shrink-0 flex-col rounded-lg bg-gray-100">
+<div class="flex items-center justify-between p-3">
+<h2 class="font-semibold text-gray-700">Concluído</h2>
+<span class="text-sm font-medium text-gray-500">1</span>
+</div>
+<div class="flex flex-col gap-3 overflow-y-auto p-3">
+<div class="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md">
+<p class="font-medium text-gray-800 line-through">Pesquisa de mercado inicial</p>
+<div class="mt-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800">Pesquisa</span>
+</div>
+<img alt="Avatar do membro da equipe" class="h-6 w-6 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzwl9Ven3vsqAwqLkXdXhPOBIwH-v9dgjwUIFZ3FhEb8fFlLkLHpK5fVRVAE6Wl1jJ0PVOYDKep3uER6zsM0wE98bIdkNAFWJJEBXThtZV3HPdsCwwVTrOXbgIBwOtWqnW9KZz2FiL8tKwEH5jxBckex3HXK7z56X9QtWIYoj7S001ULdSGAXMJd0V_iG8HUn8z7n3qfzGDBao6IB1cXymrlWbSeSfdcAT1FKTaFrGG0tgPdhMnMMxD5_xko4Ha6R--nEr0y6bWEk"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 p-4" x-data="{ open: true }" x-show="open">
+<div @click.away="open = false" class="flex h-full max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-xl bg-white shadow-2xl">
+<div class="flex shrink-0 items-center justify-between gap-2 border-b border-gray-200 px-6 py-4">
+<div class="flex items-center gap-2">
+</div>
+<div class="flex gap-2">
+<button @click="open = false" class="rounded-lg p-2 text-gray-500 hover:bg-gray-100">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<div class="flex flex-1 flex-col overflow-y-auto lg:flex-row">
+<div class="w-full lg:w-2/3 lg:overflow-y-auto lg:border-r lg:border-gray-200">
+<div class="p-6">
+<div class="flex flex-col gap-8">
+<div>
+<div class="flex flex-col gap-3">
+<p class="text-3xl font-black leading-tight tracking-[-0.033em] text-gray-900 lg:text-4xl">Finalizar o design da nova landing page</p>
+<p class="text-base font-normal leading-normal text-gray-500">na lista 'Em Progresso'</p>
+</div>
+</div>
+<div>
+<label class="flex w-full flex-col">
+<p class="pb-2 text-base font-medium leading-normal text-gray-800">Descrição</p>
+<textarea class="form-input min-h-36 flex w-full min-w-0 flex-1 resize-y overflow-hidden rounded-lg border border-gray-300 bg-gray-50 p-[15px] text-base font-normal leading-normal text-gray-800 placeholder:text-gray-500 focus:border-primary-dark focus:outline-0 focus:ring-0 focus:ring-primary/50">A landing page precisa destacar as novas funcionalidades do produto XYZ. Incluir seções para 'Features', 'Pricing' e 'Testimonials'. O design deve seguir o novo manual da marca. Wireframes estão anexados.</textarea>
+</label>
+</div>
+<div>
+<h3 class="pb-2 pt-4 text-lg font-bold leading-tight tracking-[-0.015em] text-gray-900">Checklist</h3>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between gap-6">
+<p class="text-base font-medium leading-normal text-gray-800">Progresso</p>
+<p class="text-sm font-normal leading-normal text-gray-600">50%</p>
+</div>
+<div class="h-2 rounded bg-gray-200">
+<div class="h-2 rounded bg-primary" style="width: 50%;"></div>
+</div>
+</div>
+<div class="mt-4 flex flex-col gap-3">
+<div class="flex items-center gap-3 rounded-lg bg-gray-100 p-3">
+<input checked="" class="form-checkbox h-5 w-5 rounded border-gray-400 bg-transparent text-primary-dark focus:ring-primary-dark" type="checkbox"/>
+<p class="flex-1 text-gray-700 line-through">Criar wireframe da seção 'Features'</p>
+</div>
+<div class="flex items-center gap-3 rounded-lg bg-gray-100 p-3">
+<input checked="" class="form-checkbox h-5 w-5 rounded border-gray-400 bg-transparent text-primary-dark focus:ring-primary-dark" type="checkbox"/>
+<p class="flex-1 text-gray-700 line-through">Definir paleta de cores</p>
+</div>
+<div class="flex items-center gap-3 rounded-lg bg-gray-100 p-3">
+<input class="form-checkbox h-5 w-5 rounded border-gray-400 bg-transparent text-primary-dark focus:ring-primary-dark" type="checkbox"/>
+<p class="flex-1 text-gray-900">Desenvolver a versão mobile do layout</p>
+</div>
+<div class="flex items-center gap-3 rounded-lg bg-gray-100 p-3">
+<input class="form-checkbox h-5 w-5 rounded border-gray-400 bg-transparent text-primary-dark focus:ring-primary-dark" type="checkbox"/>
+<p class="flex-1 text-gray-900">Preparar assets para desenvolvedores</p>
+</div>
+<button class="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-300">
+<span class="material-symbols-outlined text-base">add</span> Adicionar item
+                                    </button>
+</div>
+</div>
+<div>
+<h3 class="pt-4 text-lg font-bold leading-tight tracking-[-0.015em] text-gray-900">Atividade</h3>
+</div>
+</div>
+</div>
+<div class="px-6 pb-6">
+<div class="flex flex-col gap-4">
+<div class="flex gap-3">
+<img class="mt-1 h-8 w-8 rounded-full object-cover" data-alt="User avatar 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxsQjxn3ONfEEIQ6E6WFB3Dz7dkYIpScH23oQqZToeWl8vO2efl7Id057nMnnGUAl9qskSTe8YTIBh2IgLe5Jg4XQCZTt3gNOga6iqPtbuDRhKhNQIwndbBb6-LVk9Ey_eHprKUbKfNfmyo5PaiR-6iickW7NLdTnjn8axx0Hip4AVUOzD4SxvHYseHYL-hHr8z8XpZYjquvLFXwrTu-jKj91FlpyZGyJq9bA3L21GPPRdzm8UeEKhpOiRZ7ci-jRV_HhBx-5kmOY"/>
+<div class="flex-1">
+<textarea class="form-input flex w-full min-w-0 flex-1 resize-y rounded-lg border border-gray-300 bg-gray-50 p-[15px] text-base font-normal leading-normal text-gray-800 placeholder:text-gray-500 focus:border-primary-dark focus:outline-0 focus:ring-0 focus:ring-primary/50" placeholder="Escrever um comentário..." rows="2"></textarea>
+<button class="mt-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-text hover:bg-primary-dark">Comentar</button>
+</div>
+</div>
+<div class="flex gap-3">
+<img class="h-8 w-8 rounded-full object-cover" data-alt="User avatar 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-3ooyI3pqCHCR5H9uquDmIQndYBD9mOjrMFZLW4w452lSx4R86QCKIYll54s_I5PzAE0JaCw2Oj4SAzHloVEF0n0z9Dooj27XKp2_Ts-PMeDsjb6uVxpt8gjX4FWD6evDnsAKSIRIXbnlvQvvz11r07eJkywfsz83pWLehus7Z411VVjLHAm9g4W16SuKk91Atjp7dSmSJS6ruC7A0UQXQ2ug-imcN6vP2YIttn5M5gcLn-iiyu_p9v2WEb0VviYdkeDRXH5qE6c"/>
+<div class="flex-1">
+<p class="text-sm text-gray-800"><span class="font-semibold">Ana Paula</span> adicionou a etiqueta <span class="rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-semibold text-yellow-800">Urgente</span></p>
+<p class="text-xs text-gray-500">2 horas atrás</p>
+</div>
+</div>
+<div class="flex gap-3">
+<img class="h-8 w-8 rounded-full object-cover" data-alt="User avatar 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1M2R2AfXbwlAffv7n_B70FZwm-pphCrsH5MuJPcaMkSrnXaQi1kBrGry6UG0V_oYYqyUSGeoICl1ag1HwLP-ORPtZuHGB27A2EyKEYcgEtnEQtD4IUxCPxm-Sk67YN5a5h8CKfoGWQ4CmH6gxXinZSLpHvxcM91PXGV2PNYveQ58IoyPMOKFrgHh4IkflvMXPzG8nE6fscEdIY0dlyxCXvhwwNEViLqky3698qsZVa4NhmeQ7So_8GcYvYT9KGK4CeBCAhFHT_MQ"/>
+<div class="flex-1">
+<p class="text-sm text-gray-800"><span class="font-semibold">Carlos Silva</span> alterou o prazo para 25 de Dez.</p>
+<p class="text-xs text-gray-500">Ontem</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full shrink-0 lg:w-1/3 lg:overflow-y-auto">
+<div class="p-6">
+<div class="flex flex-col gap-6">
+<div>
+<h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500">Ações</h3>
+<div class="flex flex-col gap-2">
+<button class="flex w-full items-center gap-3 rounded-lg bg-gray-100 px-4 py-2.5 text-sm font-medium text-gray-800 hover:bg-gray-200">
+<span class="material-symbols-outlined text-xl">open_with</span> Mover
+                                    </button>
+<button class="flex w-full items-center gap-3 rounded-lg bg-gray-100 px-4 py-2.5 text-sm font-medium text-gray-800 hover:bg-gray-200">
+<span class="material-symbols-outlined text-xl">content_copy</span> Copiar
+                                    </button>
+<button class="flex w-full items-center gap-3 rounded-lg bg-red-50 px-4 py-2.5 text-sm font-medium text-red-700 hover:bg-red-100">
+<span class="material-symbols-outlined text-xl">archive</span> Arquivar
+                                    </button>
+</div>
+</div>
+<hr class="border-gray-200"/>
+<div>
+<h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500">Atributos</h3>
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<p class="text-base font-medium text-gray-600">Responsáveis</p>
+<div class="flex items-center">
+<div class="flex -space-x-2">
+<img class="h-8 w-8 rounded-full border-2 border-white object-cover" data-alt="User avatar 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzwl9Ven3vsqAwqLkXdXhPOBIwH-v9dgjwUIFZ3FhEb8fFlLkLHpK5fVRVAE6Wl1jJ0PVOYDKep3uER6zsM0wE98bIdkNAFWJJEBXThtZV3HPdsCwwVTrOXbgIBwOtWqnW9KZz2FiL8tKwEH5jxBckex3HXK7z56X9QtWIYoj7S001ULdSGAXMJd0V_iG8HUn8z7n3qfzGDBao6IB1cXymrlWbSeSfdcAT1FKTaFrGG0tgPdhMnMMxD5_xko4Ha6R--nEr0y6bWEk"/>
+<img class="h-8 w-8 rounded-full border-2 border-white object-cover" data-alt="User avatar 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDEFmCyHnE_PneULdfCOt2_HzksshnCqNSvdNsTQ9TnPQQr6zSKkTthLNZthG5SR4LH4LsFWji3cHq9x_4aFGRwT_i714KpUJRFoXBSot9vFoevCRQhY482YqP4NdNH5IZ_u5NNrxBtNLo4v1O6PNcgj74G88zRXHFlTmEMCmmPuKnj2UhDsAkmEpcMpfGzsKQh-VRTBh8GYjB6HFCK8Vn2B23hxdmx3L0uTC6M-VfiyaOi3O6jTEx4T_zown4HS9Bd0ty_8mod3k"/>
+</div>
+<button class="ml-2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-dashed border-gray-400 text-gray-400 hover:border-primary-dark hover:text-primary-dark">
+<span class="material-symbols-outlined text-lg">add</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<p class="text-base font-medium text-gray-600">Etiquetas</p>
+<div class="flex flex-wrap items-center justify-end gap-2">
+<span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">Design</span>
+<span class="rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-800">Urgente</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<p class="text-base font-medium text-gray-600">Prazo</p>
+<button class="flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800 hover:bg-gray-200">
+<span class="material-symbols-outlined text-base">calendar_today</span> 25 de Dez
+                                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script defer="" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+</body></html>
