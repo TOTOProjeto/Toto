@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard de Projetos - Toto</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FACC15", // yellow-400
+                        "primary-dark": "#EAB308", // yellow-500
+                        "primary-light": "#FEF9C3", // yellow-50
+                        "background-light": "#ffffff",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="sticky top-0 z-20 w-full bg-background-light/80 backdrop-blur-sm border-b border-slate-200">
+<div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-slate-900">
+<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+<span class="font-black text-lg text-slate-900">T</span>
+</div>
+<h2 class="text-slate-900 text-lg font-bold leading-tight tracking-[-0.015em]">Toto</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-500 flex border border-r-0 border-slate-300 bg-slate-100 items-center justify-center pl-3 rounded-l-lg">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 focus:outline-0 focus:ring-2 focus:ring-primary-dark border border-l-0 border-slate-300 bg-slate-100 h-full placeholder:text-slate-500 px-4 rounded-l-none pl-2 text-base font-normal leading-normal" placeholder="Buscar projetos..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-slate-900 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark gap-2">
+<span class="material-symbols-outlined text-xl">add</span>
+<span class="truncate hidden sm:block">Criar Novo Quadro</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDaohckgG98Ju0WleOr8XJJR1cMe8TVD4g9I6Mtb9H3Eyq-YgII76xQjNvQqnrOOV15UlFK83aDglEN-lrUyI8ciI0ROxyDbXUTZm1UtXED1csmk2pTnDohEV3cQvqtF9XOwMapPN0xT1tn4c1AeqZRzCrqXtlEc_xNU8VE5QSwG4SPrQ7Aw_1KqthIMpgCrWK1tMnJ7eAY7K6r9UVDg1ZSjTW2tlRpD6GJKzIKay7qVwzF1aiU2kkaPHwcGWVMrPmMAth1_9uLMhY");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-5 sm:py-8 lg:py-12">
+<div class="layout-content-container flex flex-col w-full max-w-screen-xl px-4 sm:px-6 lg:px-8">
+<div class="flex flex-wrap justify-between gap-4 p-4 items-end">
+<div class="flex min-w-72 flex-col gap-2">
+<p class="text-slate-900 text-4xl font-black leading-tight tracking-[-0.033em]">Projetos e Quadros</p>
+<p class="text-slate-600 text-base font-normal leading-normal">Visão geral de todos os seus projetos e quadros Kanban.</p>
+</div>
+</div>
+<div class="flex gap-2 p-3 overflow-x-auto">
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-primary-light pl-4 pr-4 ring-1 ring-inset ring-primary">
+<p class="text-primary-dark text-sm font-medium leading-normal">Todos</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-slate-100 pl-4 pr-4 hover:bg-slate-200 cursor-pointer">
+<p class="text-slate-700 text-sm font-medium leading-normal">Meus Quadros</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-slate-100 pl-4 pr-4 hover:bg-slate-200 cursor-pointer">
+<p class="text-slate-700 text-sm font-medium leading-normal">Compartilhados Comigo</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
+<div class="flex flex-col gap-4 rounded-xl bg-white border border-slate-200 p-5 group hover:border-primary-dark transition-colors duration-200 shadow-sm hover:shadow-lg">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<p class="text-slate-900 text-base font-bold leading-normal">Lançamento do App V2</p>
+<p class="text-slate-500 text-sm font-normal leading-normal">Equipe de Produto</p>
+</div>
+<button class="text-slate-500 hover:text-slate-800">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex gap-6 justify-between items-center"><p class="text-slate-600 text-sm font-medium leading-normal">7/10 tarefas concluídas</p></div>
+<div class="w-full rounded-full bg-slate-200 h-2"><div class="h-2 rounded-full bg-green-500" style="width: 70%;"></div></div>
+</div>
+<div class="flex items-center justify-between mt-2">
+<div class="flex -space-x-2">
+<div class="size-8 rounded-full border-2 border-white bg-cover bg-center" data-alt="Team member avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAf9_Qf3kenEbesUTWeCMujXYr2z8yG9pK_wm0Sfm_1e9ntl5p81fo4LQyRKIRWQRmnG8srLi9YazZKnbIYbICCRMNxYEsU92aY9qM451Mf2t7tw_uAQWoqV-n2ScdVc3kr50HVZRn534H0CBZwpbSkOg_0cm3wEkwEt1hZc1E3bCI9oSJxKjYuUXCtY2KJKkyP4jm8rHQ5RBHsaZchp4NWxtaktIjqTHemU0cmySCV5F3N-fNLTVTlIjlMka5qFG1Njj60sMDUIco")'></div>
+<div class="size-8 rounded-full border-2 border-white bg-cover bg-center" data-alt="Team member avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB5xFQJb9SiZlVVFfxavCmAfMsiflcb_szV2uHa2fDVJf_pcivAOuFbm02MZxsfwpnUo54jpOK-pruL3VNyqZqDY7zPmTJz2T0Q3cU5IfL2AnO_5hRJdLLdLYBNmc3J12mjErES-fx9nUYo6ZN26LQsakyWfGXjsQR1FX-Go3mq8UGvPVumUq0CzpcFW7Ir-32KvSeKFql5Bt-TKs7tk8krOfC5wfbuUy3KQzWa-tvXLbvip2Zo6gEm5iOUpy0Q4nvB2zyHwvFzd5E")'></div>
+<div class="size-8 rounded-full border-2 border-white bg-cover bg-center" data-alt="Team member avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhmjc8kj2YqfcUmWzTzb2Qf2mCvw_9GbV_EOWuHKtxCNfVg1lQvlanX3ofJPutjtGaGG5A0_uLSeA0PWtUuYM6BQJMkyQBAN8PUycmZJWQRGNW0FZXmpvit0sDT3o2m4c28Hf4aBM3prB-jni-PTOu4TEV4midwCXPbvVnN3u6Q19XhZ2iRyC9qPRTnA0RlBXFeOHi07AoetZJUahVu5mVDw60WVk6D5hPXeWB4RAdGBeYxTZyKliExo1ymV6u-6BbHr05E9JV4CE")'></div>
+</div>
+<span class="text-xs font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full">Concluído</span>
+</div>
+</div>
+<div class="flex flex-col gap-4 rounded-xl bg-white border border-slate-200 p-5 group hover:border-primary-dark transition-colors duration-200 shadow-sm hover:shadow-lg">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<p class="text-slate-900 text-base font-bold leading-normal">Campanha de Marketing Q3</p>
+<p class="text-slate-500 text-sm font-normal leading-normal">Equipe de Marketing</p>
+</div>
+<button class="text-slate-500 hover:text-slate-800">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex gap-6 justify-between items-center"><p class="text-slate-600 text-sm font-medium leading-normal">4/15 tarefas concluídas</p></div>
+<div class="w-full rounded-full bg-slate-200 h-2"><div class="h-2 rounded-full bg-yellow-500" style="width: 26%;"></div></div>
+</div>
+<div class="flex items-center justify-between mt-2">
+<div class="flex -space-x-2">
+<div class="size-8 rounded-full border-2 border-white bg-cover bg-center" data-alt="Team member avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBClQc5UuSDytad8m7IHRwX_hHGdAF8wY8PDT3ZFKsUVbAD1YpyrCasIwrO_1Qoqf7RVn4uXHBnlS1tcT0rt32B5VKl-RCE_gYvTwLpLui9sjhGpEMQ9IehcIlmoXWaGW4WuFyOhJShvXPEqyF6abXcYEjVwqzD2xLHcrF4SMQyqm0y6jxzEScvcatyZF6zD8qDPb3ul3jZMF11YMGSI0Qc4AQ0QD8E3MJWcKD2V4ENeEqqXWo99_49MMNuxFXA1SGLEe9Lg6C-pc0")'></div>
+<div class="size-8 rounded-full border-2 border-white bg-cover bg-center" data-alt="Team member avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDneDWW6fClLrd81Pg7xJ5hEJYaKXxQfM3TTzlWujDf6EUaq2NAWKcySOkWgXpzA3mbu_PVjxRPZtFuDKi8oh3Yv3s_SYJYwYmKsJaib_WvsADSSwemg3iMIFrRhGS1KcAJqG0mfmhvk3KsD5FXCeHKJXVKAjYnxKiLtiJuNetjZyf35862GX5csU0Zc_EuL_fDMKzXpq3zdUiPSk1as3XZC8swY-7vCQ-Rvd7YevbvvT8EO2qsktmVN7ZI7EzstCtuSf3HK8NDWkI")'></div>
+</div>
+<span class="text-xs font-medium text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Em Andamento</span>
+</div>
+</div>
+<div class="flex flex-col gap-4 rounded-xl bg-white border border-slate-200 p-5 group hover:border-primary-dark transition-colors duration-200 shadow-sm hover:shadow-lg">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<p class="text-slate-900 text-base font-bold leading-normal">Redesign do Website</p>
+<p class="text-slate-500 text-sm font-normal leading-normal">Equipe de Design</p>
+</div>
+<button class="text-slate-500 hover:text-slate-800">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex gap-6 justify-between items-center"><p class="text-slate-600 text-sm font-medium leading-normal">1/8 tarefas concluídas</p></div>
+<div class="w-full rounded-full bg-slate-200 h-2"><div class="h-2 rounded-full bg-yellow-500" style="width: 12%;"></div></div>
+</div>
+<div class="flex items-center justify-between mt-2">
+<div class="flex -space-x-2">
+<div class="size-8 rounded-full border-2 border-white bg-cover bg-center" data-alt="Team member avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA1LN8k6Ovr6yLtn32eLV8EzDxVZBYlslatrb1rsXNeQkPfZNyRfrbkudKs8VQE6eSVM7-EnQn3CfkDtje5oWCsaPdHxm5gtMvWVOxlgYza-Uko84KdHiLUXvV0-Map_Apj4o3eZ4bhS1tyg1RjW9UqJPK0E9y7wgbczh1rYh2d0FTdgcUKVik0UPCRaBxDWSy7xCGD6YTRyOP2NxlegywXclDNcu3I4NLb0EkUjT4LtbYEjqGwhiCAu9Scif3lUNtlfpsvbOcYKk8")'></div>
+<div class="size-8 rounded-full border-2 border-white bg-cover bg-center" data-alt="Team member avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDf8403kQW2zW-njVK9-jnnQSfD33aG7714W1eQTvb5l8gkE_zNFr950SCg2uEOukJnn1R1Y4dR3pytdj3HeKuJfkvXGBW_hMZqmGFNuFtbUu8oGTi63_EB0yrhsyS25-XFdTnUjaZXNX6yiUufaHnSDSgZ8hwOXtGGUW3rJZGkGlpViY6D08KLyv170ZSMBGBU2fj2crKRM93I6MGBRLaR7LMWScJtkkJOQkgOU-G0jhygoA-g6PcIicrpQucaLTPbAgOaAv6yWdg")'></div>
+<div class="size-8 rounded-full border-2 border-white bg-cover bg-center" data-alt="Team member avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBVkSwodL6XPAfhJuN-PvyIG_PN3PBkihQdwafe9EJ49GOhsvu2faPr0aDX0cMdoF_Vm9SdkkXPF0tOqaQvOn2MeoSPSmDtf89VrwaXOHDMrFecNwSySP4lMBhQJz0IOV_A2MkTRDpGiBkExrw9r25a5FU_jAnQazkzXDUoxf-uGSndmsaH7dkATFkAiiCr4X3dp_vlxlvS_zfyg0PCGLyfkYBETeyq6QEowLxteUWarP09fJQ4AjhcCWTF5rVShbYprZshcl4jSHg")'></div>
+</div>
+<span class="text-xs font-medium text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">Em Andamento</span>
+</div>
+</div>
+<div class="flex cursor-pointer flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 p-5 transition-colors duration-200 hover:border-primary-dark hover:bg-primary-light">
+<div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-light">
+<span class="material-symbols-outlined text-primary-dark text-3xl">add</span>
+</div>
+<div class="flex flex-col text-center">
+<p class="text-slate-900 text-base font-bold leading-normal">Criar Novo Quadro</p>
+<p class="text-slate-500 text-sm font-normal leading-normal">Comece um novo projeto do zero.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+
+</body></html>
