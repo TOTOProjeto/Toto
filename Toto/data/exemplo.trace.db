@@ -150,3 +150,6 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/Bruno W
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:291)
 	... 58 more
+2026-02-23 20:34:47.054753-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TABELA" not found; SQL statement:
+Select * from TABELA [42102-240]
