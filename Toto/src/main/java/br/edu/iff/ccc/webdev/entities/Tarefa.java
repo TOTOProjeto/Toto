@@ -1,25 +1,52 @@
 package br.edu.iff.ccc.webdev.entities;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
+@Table(name = "tarefas_table")
 public class Tarefa implements Serializable {
    
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String titulo;
-    private String descricao;
-    private LocalDate dataCriacao;
-    private LocalDate prazo;
-    private Integer prioridade; 
 
+    @NotEmpty(message = "O título é obrigatório e não pode estar vazio")
+    @Column(nullable = false, length = 100)
+    private String titulo;
+
+    @Column(columnDefinition = "TEXT")
+    private String descricao;
+
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDate dataCriacao = LocalDate.now(); 
+
+    @FutureOrPresent(message = "O prazo não pode ser uma data passada")
+    private LocalDate prazo;
+
+    private Integer prioridade;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario responsavel;
+
+    @ManyToOne
+    @JoinColumn(name = "equipe_id", nullable = true)
+    private Equipe equipe;
+    
     public Tarefa() {
     }
 
@@ -127,6 +154,22 @@ public class Tarefa implements Serializable {
         } else if (!prioridade.equals(other.prioridade))
             return false;
         return true;
+    }
+
+    public Usuario getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(Usuario responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
     }
     
 }

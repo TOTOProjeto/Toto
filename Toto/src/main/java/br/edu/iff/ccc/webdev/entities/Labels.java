@@ -14,7 +14,7 @@ public class Labels implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-
+    
     private String nome;
 
     private String descricao;
