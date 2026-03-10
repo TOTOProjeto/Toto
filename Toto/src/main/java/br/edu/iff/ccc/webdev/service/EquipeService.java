@@ -20,7 +20,36 @@ public class EquipeService {
     private UsuarioRepository usuarioRepository;
 
     @Transactional
-public Equipe salvar(EquipeDTO dto) {
+    public Equipe atualizar(Long id, EquipeDTO dto) {
+        Equipe equipeExistente = equipeRepository.findById(id).orElse(null);
+        if (equipeExistente == null) {
+            return null;
+        }
+
+        equipeExistente.setNome(dto.getNome());
+        equipeExistente.setDescricao(dto.getDescricao());
+
+        // Atualiza o responsável
+        if (dto.getResponsavelId() != null) {
+            Usuario resp = usuarioRepository.findById(dto.getResponsavelId()).orElse(null);
+            equipeExistente.setResponsavel(resp);
+        } else {
+            equipeExistente.setResponsavel(null);
+        }
+
+        // Atualiza os membros (limpa a lista atual e adiciona os novos)
+        equipeExistente.getMembros().clear();
+        if (dto.getMembrosIds() != null && !dto.getMembrosIds().isEmpty()) {
+            for (Long membroId : dto.getMembrosIds()) {
+                usuarioRepository.findById(membroId).ifPresent(equipeExistente::adicionarMembro);
+            }
+        }
+
+        return equipeRepository.save(equipeExistente);
+    }
+    
+    @Transactional
+    public Equipe salvar(EquipeDTO dto) {
     Equipe equipe = new Equipe();
     equipe.setNome(dto.getNome());
     equipe.setDescricao(dto.getDescricao());

@@ -22,7 +22,19 @@ public class UsuarioService {
         u.setEmail(dto.getEmail());
         return repository.save(u);
     }
+    
+    @Transactional
+    public Usuario atualizar(Long id, UsuarioDTO dto) {
+        Usuario usuarioExistente = repository.findById(id).orElse(null);
+        if (usuarioExistente == null) {
+            return null;
+        }
 
+        usuarioExistente.setNome(dto.getNome());
+        usuarioExistente.setEmail(dto.getEmail());
+        
+        return repository.save(usuarioExistente);
+    }
     public List<Usuario> listarTodos() { 
         return repository.findAll(); 
     }

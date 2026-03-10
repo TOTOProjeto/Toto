@@ -83,10 +83,18 @@ public class RestTarefaApiController {
     }
 
 @GetMapping("/urgentes")
-    public ResponseEntity<List<Tarefa>> listarUrgentes(@RequestParam Integer prioridade) {
-    List<Tarefa> urgentes = tarefaService.buscarUrgentes(prioridade);
-    return ResponseEntity.ok(urgentes);
-}
+    public ResponseEntity<List<TarefaDTO>> listarUrgentes(@RequestParam Integer prioridade) {
+        // 1. Busca as entidades no banco de dados
+        List<Tarefa> urgentes = tarefaService.buscarUrgentes(prioridade);
+        
+        // 2. Converte a lista de Entidades para uma lista de DTOs
+        List<TarefaDTO> urgentesDTO = urgentes.stream()
+            .map(this::converterParaDTO)
+            .toList();
+            
+        // 3. Retorna a lista de DTOs com o status 200 OK
+        return ResponseEntity.ok(urgentesDTO);
+    }
 @PutMapping("/{id}")
 public ResponseEntity<TarefaDTO> atualizarTarefa(@PathVariable Long id, @Valid @RequestBody TarefaDTO tarefaDTO) {
     Tarefa tarefaAtualizada = tarefaService.atualizar(id, tarefaDTO);
