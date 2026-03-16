@@ -30,9 +30,9 @@ O projeto valoriza três pilares fundamentais:
 
 | Pilar | Descrição |
 |-------|------------|
-| Organização | Visualização clara das tarefas e do andamento do projeto. |
-| Colaboração | Comunicação integrada e trabalho em equipe eficiente. |
-| Simplicidade | Interface intuitiva e foco total na experiência do usuário. |
+| **Organização** | Visualização clara das tarefas e do andamento do projeto. |
+| **Colaboração** | Comunicação integrada e trabalho em equipe eficiente. |
+| **Simplicidade** | Interface intuitiva e foco total na experiência do usuário. |
 
 ---
 
@@ -54,7 +54,7 @@ Os quadros permitem estruturar o fluxo de trabalho de forma visual e adaptável 
 
 Dentro dos quadros, os usuários podem:
 
-- Criar cartões com título, descrição, responsável e prazo  
+- Criar cartões(tarefas) com título, descrição, responsável e prazo  
 - Mover tarefas entre colunas  
 - Atualizar informações da tarefa  
 - Registrar o histórico de movimentações  
@@ -85,12 +85,34 @@ Um mesmo usuário pode participar de vários projetos com permissões distintas.
 
 ## Tecnologias Utilizadas
 
-- Java 17+  
-- Spring Boot  
-- API REST  
-- Sistema de controle de acesso e segurança  
+- **Linguagem:** Java 17+  
+- **Framework:** Spring Boot  
+- **Arquitetura:** API REST (Model, Repository, Service, Controller)
+- **Banco de Dados:** H2 Database (em memória para testes e desenvolvimento)
+- **Validação:** Jakarta Bean Validation (`@Valid`, `@NotEmpty`, `@FutureOrPresent`)
 
 ---
+
+## 📌 Exemplo de Chamada da API
+
+Abaixo está um exemplo de payload JSON para criar uma nova Tarefa no sistema (o coração do projeto Toto). 
+
+**Endpoint:** `POST /api/v1/tarefas`
+
+**Corpo da Requisição (Request Body):**
+```json
+{
+  "nome": "Finalizar a API do Projeto Toto",
+  "descricao": "Apresentar o backend para a avaliação funcional com o banco H2 rodando.",
+  "prazo": "2026-03-20",
+  "prioridade": 1,
+  "usuarioId": 1,
+  "equipeId": 1,
+  "particaoId": 1,
+  "labelsIds": [1, 2]
+}
+
+Resposta Esperada: Status 201 Created
 
 ## Visão
 
