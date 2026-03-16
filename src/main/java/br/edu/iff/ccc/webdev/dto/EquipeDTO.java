@@ -11,7 +11,7 @@ public class EquipeDTO {
     private String nome;
     private String descricao;
     private Long responsavelId; 
-    private List<Long> membrosIds; // ManyToMany
+    private List<Long> membrosIds; 
 
     public EquipeDTO() {
     }
