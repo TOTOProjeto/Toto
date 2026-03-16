@@ -64,7 +64,6 @@ public class RestUsuarioApiController {
         return ResponseEntity.noContent().build();
     }
 
-    // Método auxiliar de conversão
     private UsuarioDTO converterParaDTO(Usuario u) {
         UsuarioDTO dto = new UsuarioDTO();
         dto.setId(u.getId());

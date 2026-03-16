@@ -11,9 +11,6 @@ import br.edu.iff.ccc.webdev.entities.Tarefa;
 @Repository
 public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
 
-    List<Tarefa> findByTitulo(String titulo);
-    List<Tarefa> findByPrioridadeGreaterThan(Integer prioridade);
-
     @Query("SELECT t FROM Tarefa t WHERE t.prazo = CURRENT_DATE")
     List<Tarefa> buscarTarefasParaHoje();
 

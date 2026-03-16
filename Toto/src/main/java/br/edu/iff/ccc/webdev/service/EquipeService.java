@@ -29,7 +29,6 @@ public class EquipeService {
         equipeExistente.setNome(dto.getNome());
         equipeExistente.setDescricao(dto.getDescricao());
 
-        // Atualiza o responsável
         if (dto.getResponsavelId() != null) {
             Usuario resp = usuarioRepository.findById(dto.getResponsavelId()).orElse(null);
             equipeExistente.setResponsavel(resp);
@@ -37,7 +36,6 @@ public class EquipeService {
             equipeExistente.setResponsavel(null);
         }
 
-        // Atualiza os membros (limpa a lista atual e adiciona os novos)
         equipeExistente.getMembros().clear();
         if (dto.getMembrosIds() != null && !dto.getMembrosIds().isEmpty()) {
             for (Long membroId : dto.getMembrosIds()) {

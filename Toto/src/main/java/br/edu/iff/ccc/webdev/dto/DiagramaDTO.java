@@ -11,9 +11,9 @@ public class DiagramaDTO {
 
     private String descricao;
 
-    private Long donoId; // ID do Usuário criador (Long, pois Usuario.id é Long)
+    private Long donoId; 
     
-    private Long timeId; // ID da Equipe vinculada (Long, pois Equipe.id é Long)
+    private Long timeId; 
 
     public DiagramaDTO() {
     }

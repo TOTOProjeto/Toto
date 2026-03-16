@@ -10,8 +10,8 @@ public class EquipeDTO {
     @NotBlank(message = "Nome da equipe é obrigatório")
     private String nome;
     private String descricao;
-    private Long responsavelId; // ID do Usuário que manda na equipe
-    private List<Long> membrosIds; // IDs dos membros (ManyToMany)
+    private Long responsavelId; 
+    private List<Long> membrosIds; // (ManyToMany)
 
     public EquipeDTO() {
     }

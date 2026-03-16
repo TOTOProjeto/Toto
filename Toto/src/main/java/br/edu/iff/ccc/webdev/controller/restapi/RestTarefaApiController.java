@@ -38,7 +38,6 @@ public class RestTarefaApiController {
 
     @GetMapping
     public ResponseEntity<List<TarefaDTO>> listarTarefas() {
-        // Converte a lista de Entidades para uma lista de DTOs antes de devolver
         List<TarefaDTO> listaDTO = tarefaService.listarTodas().stream()
             .map(this::converterParaDTO)
             .toList();
@@ -51,7 +50,6 @@ public class RestTarefaApiController {
         if (tarefa == null) {
             return ResponseEntity.notFound().build();
         }
-        // Converte a entidade encontrada para DTO
         return ResponseEntity.ok(converterParaDTO(tarefa));
     }
 
@@ -84,15 +82,12 @@ public class RestTarefaApiController {
 
 @GetMapping("/urgentes")
     public ResponseEntity<List<TarefaDTO>> listarUrgentes(@RequestParam Integer prioridade) {
-        // 1. Busca as entidades no banco de dados
         List<Tarefa> urgentes = tarefaService.buscarUrgentes(prioridade);
         
-        // 2. Converte a lista de Entidades para uma lista de DTOs
         List<TarefaDTO> urgentesDTO = urgentes.stream()
             .map(this::converterParaDTO)
             .toList();
             
-        // 3. Retorna a lista de DTOs com o status 200 OK
         return ResponseEntity.ok(urgentesDTO);
     }
 @PutMapping("/{id}")

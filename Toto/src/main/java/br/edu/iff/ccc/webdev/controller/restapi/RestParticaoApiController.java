@@ -66,7 +66,6 @@ public class RestParticaoApiController {
         return ResponseEntity.noContent().build();
     }
 
-    // Método auxiliar de conversão (mantendo o mesmo padrão que você usou nos outros controllers)
     private ParticaoDTO converterParaDTO(Particao p) {
         ParticaoDTO dto = new ParticaoDTO();
         dto.setId(p.getId());

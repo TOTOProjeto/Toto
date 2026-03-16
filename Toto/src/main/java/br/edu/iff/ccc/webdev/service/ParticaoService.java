@@ -19,14 +19,13 @@ public class ParticaoService {
     private ParticaoRepository particaoRepository;
 
     @Autowired
-    private DiagramaRepository diagramaRepository; // Agora injetamos o repositório
+    private DiagramaRepository diagramaRepository; 
 
     @Transactional
     public Particao salvar(ParticaoDTO dto) {
         Particao particao = new Particao();
         particao.setNome(dto.getNome());
 
-        // Lógica ativada: associando a Partição (Coluna) ao Diagrama (Quadro)
         if (dto.getDiagramaId() != null) {
             Diagrama diagrama = diagramaRepository.findById(dto.getDiagramaId())
                 .orElseThrow(() -> new RuntimeException("Diagrama não encontrado"));
@@ -54,7 +53,6 @@ public class ParticaoService {
 
         particaoExistente.setNome(dto.getNome());
         
-        // Atualizando o diagrama caso o usuário envie um novo ID
         if (dto.getDiagramaId() != null) {
             Diagrama diagrama = diagramaRepository.findById(dto.getDiagramaId())
                 .orElseThrow(() -> new RuntimeException("Diagrama não encontrado"));

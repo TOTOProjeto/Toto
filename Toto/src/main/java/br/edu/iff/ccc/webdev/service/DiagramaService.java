@@ -32,14 +32,12 @@ public class DiagramaService {
         diagrama.setNome(dto.getNome());
         diagrama.setDescricao(dto.getDescricao());
 
-        // Vinculando o Dono (Usuário)
         if (dto.getDonoId() != null) {
             Usuario dono = usuarioRepository.findById(dto.getDonoId())
                 .orElseThrow(() -> new RuntimeException("Usuário (Dono) não encontrado"));
             diagrama.setDono(dono);
         }
 
-        // Vinculando a Equipe (Time)
         if (dto.getTimeId() != null) {
             Equipe time = equipeRepository.findById(dto.getTimeId())
                 .orElseThrow(() -> new RuntimeException("Equipe não encontrada"));
@@ -68,14 +66,12 @@ public class DiagramaService {
         diagramaExistente.setNome(dto.getNome());
         diagramaExistente.setDescricao(dto.getDescricao());
         
-        // Atualizando o Dono (Usuário) se um novo ID for enviado
         if (dto.getDonoId() != null) {
             Usuario dono = usuarioRepository.findById(dto.getDonoId())
                 .orElseThrow(() -> new RuntimeException("Usuário (Dono) não encontrado ao atualizar"));
             diagramaExistente.setDono(dono);
         }
 
-        // Atualizando a Equipe (Time) se um novo ID for enviado
         if (dto.getTimeId() != null) {
             Equipe time = equipeRepository.findById(dto.getTimeId())
                 .orElseThrow(() -> new RuntimeException("Equipe não encontrada ao atualizar"));

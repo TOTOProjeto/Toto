@@ -64,7 +64,6 @@ public class RestEquipeApiController {
         return ResponseEntity.ok(converterParaDTO(equipeAtualizada));
     }
 
-    // Método auxiliar de conversão
     private EquipeDTO converterParaDTO(Equipe e) {
         EquipeDTO dto = new EquipeDTO();
         dto.setId(e.getId());

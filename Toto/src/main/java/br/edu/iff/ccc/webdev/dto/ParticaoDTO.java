@@ -9,7 +9,7 @@ public class ParticaoDTO {
     @NotBlank(message = "O nome da partição é obrigatório")
     private String nome;
 
-    private Integer diagramaId; // Para vincular ao quadro/diagrama
+    private Integer diagramaId; 
 
     public ParticaoDTO() {
     }

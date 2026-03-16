@@ -51,7 +51,6 @@ public class TarefaService {
             tarefa.setEquipe(eqp);
         }
         
-        // Salvando os novos relacionamentos
         if (tarefaDTO.getParticaoId() != null) {
             Particao part = particaoRepository.findById(tarefaDTO.getParticaoId())
                 .orElseThrow(() -> new RuntimeException("Particao não encontrada"));
