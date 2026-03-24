@@ -45,12 +45,9 @@ public class RestTarefaApiController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TarefaDTO> buscarPorId(@PathVariable Long id) {
-        Tarefa tarefa = tarefaService.buscarPorId(id);
-        if (tarefa == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(converterParaDTO(tarefa));
+    public ResponseEntity<Tarefa> buscarTarefa(@PathVariable Long id) {
+        Tarefa tarefa = tarefaService.buscarPorIdExcessaoTarefa(id);
+        return ResponseEntity.ok(tarefa);
     }
 
     @DeleteMapping("/{id}")
