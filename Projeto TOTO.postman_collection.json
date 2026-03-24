@@ -1,0 +1,400 @@
+{
+  "info": {
+    "_postman_id": "89b07216-807b-4746-830e-acc763246633",
+    "name": "Projeto TOTO",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52641192",
+    "_collection_link": "https://go.postman.co/collection/52641192-89b07216-807b-4746-830e-acc763246633?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Cadastrando Usuário Bruno",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Bruno\",\r\n  \"email\": \"bruno@toto.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cadastrando Usuário Ítalo",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Italo\",\r\n  \"email\": \"italo@toto.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Definindo a Equipe",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Equipe Backend\",\r\n  \"descricao\": \"Desenvolvedores da API\",\r\n  \"responsavelId\": 1,\r\n  \"membrosIds\": [1,2]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/equipes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "equipes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Definindo o Diagrama",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Quadro da P1\",\r\n  \"descricao\": \"Quadro principal para a entrega\",\r\n  \"donoId\": 1,\r\n  \"timeId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/diagramas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "diagramas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Definindo a Partição",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Em Andamento\",\r\n  \"diagramaId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/particoes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "particoes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Definindo os Labels",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Backend\",\r\n  \"descricao\": \"Tarefas de servidor\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/labels",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "labels"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Definindo os Labels",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Urgente\",\r\n  \"descricao\": \"Prioridade máxima\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/labels",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "labels"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Definindo a Tarefa",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Finalizar a API do Projeto Toto\",\r\n  \"descricao\": \"Apresentar o backend para a avaliação funcional com o banco H2 rodando.\",\r\n  \"prazo\": \"2026-03-20\",\r\n  \"prioridade\": 1,\r\n  \"usuarioId\": 1,\r\n  \"equipeId\": 1,\r\n  \"particaoId\": 1,\r\n  \"labelsIds\": [1, 2]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tarefas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tarefas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Tarefas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tarefas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tarefas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Usuário Específico",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/usuarios/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "usuarios",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Atualizar Tarefa",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Finalizar a API do Projeto Toto\",\r\n  \"descricao\": \"A apresentação terminou\",\r\n  \"prazo\": \"2026-03-20\",\r\n  \"prioridade\": 2,\r\n  \"usuarioId\": 1,\r\n  \"equipeId\": 1,\r\n  \"particaoId\": 1,\r\n  \"labelsIds\": [1, 2]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tarefas/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tarefas",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Query Customizada",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tarefas/urgentes?prioridade=2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tarefas",
+            "urgentes"
+          ],
+          "query": [
+            {
+              "key": "prioridade",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deletando Tarefa",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tarefas/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tarefas",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
