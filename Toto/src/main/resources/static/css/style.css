@@ -1,0 +1,105 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+/*  NAVEGAÇÃO */
+nav {
+  background-color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+nav h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+nav input {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+}
+
+nav button {
+  margin-left: auto;
+  background-color: #f5c518;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* CONTEÚDO PRINCIPAL */
+main {
+  padding: 30px 20px;
+}
+
+main h2 {
+  margin-bottom: 5px;
+}
+
+main p {
+  color: gray;
+  margin-bottom: 20px;
+}
+
+/* GRID DE CARDS */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* CARD DE DIAGRAMA */
+.card {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  width: 250px;
+}
+
+.card h3 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+}
+
+.card p {
+  margin: 0;
+  color: gray;
+  font-size: 13px;
+}
+
+/* CARD NOVO */
+.card-novo {
+  background-color: white;
+  border: 2px dashed #aaa;
+  border-radius: 10px;
+  padding: 15px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 100px;
+}
+
+.card-novo span {
+  font-size: 30px;
+  color: #f5c518;
+}
+
+.card-novo p {
+  margin: 5px 0 0 0;
+  font-weight: bold;
+  color: #333;
+}
