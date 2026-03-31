@@ -175,5 +175,40 @@
 </main>
 </div>
 </div>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 </body></html>
+  <head th:replace="~{baseLayout :: baseHead}"></head>
+
+  <body>
+
+    <header th:replace="~{baseLayout :: baseHeaderPage}"></header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+      <h2>Projetos e Diagramas</h2>
+      <p>Visão geral de todos os seus diagramas Kanban.</p>
+
+      <div class="cards">
+        <div class="card" th:each="diagrama : ${diagramas}">
+          <h3 th:text="${diagrama.nome}">Nome</h3>
+          <p th:text="${diagrama.dono.nome}">Responsável</p>
+        </div>
+
+        <!-- Exemplos -->
+        <div class="card">
+          <h3>Diagrama Sprint 1</h3>
+          <p>Responsável: João Silva</p>
+        </div>
+
+        <!-- Card para criar novo diagrama -->
+        <div class="card-novo" onclick="alert('Criar novo diagrama!')">
+          <span>+</span>
+          <p>Criar Novo Diagrama</p>
+        </div>
+
+      </div>
+    </main>
+
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+  <!-- Fragmento 1: HEAD base da aplicação -->
+  <head th:fragment="baseHead">
+    <meta charset="UTF-8">
+    <title th:text="#{app.title}">Toto</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
+  </head>
+
+  <!-- Fragmento 2: HEADER/NAV base da aplicação -->
+  <header th:fragment="baseHeaderPage">
+    <nav>
+      <h1 th:text="#{app.title}">Toto</h1>
+      <input type="text" placeholder="Buscar diagramas...">
+    </nav>
+  </header>
+
+</html>
