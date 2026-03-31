@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes da Tarefa</title>
+</head>
+<body>
+
+    <h1>Detalhes da Tarefa</h1>
+
+    <!-- Mensagem de erro caso a tarefa não seja encontrada -->
+    <div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <!-- Exibição dos dados da tarefa -->
+    <div th:if="${tarefa != null}">
+        <p><strong>ID:</strong> <span th:text="${tarefa.id}"></span></p>
+        <p><strong>Título:</strong> <span th:text="${tarefa.titulo}"></span></p>
+        <p><strong>Descrição:</strong> <span th:text="${tarefa.descricao}"></span></p>
+        <p><strong>Data de Criação:</strong> <span th:text="${tarefa.dataCriacao}"></span></p>
+        <p><strong>Prazo:</strong> <span th:text="${tarefa.prazo}"></span></p>
+        <p><strong>Prioridade:</strong> <span th:text="${tarefa.prioridade}"></span></p>
+        <p><strong>Responsável:</strong> <span th:text="${tarefa.responsavel != null ? tarefa.responsavel.nome : 'Sem responsável'}"></span></p>
+        <p><strong>Equipe:</strong> <span th:text="${tarefa.equipe != null ? tarefa.equipe.nome : 'Sem equipe'}"></span></p>
+    </div>
+
+    <br>
+    <a href="/tarefas">← Voltar para a lista</a>
+
+</body>
+</html>
