@@ -67,9 +67,10 @@ public class EquipeService {
     return equipeRepository.save(equipe);
 }
 
+    @Transactional
     public List<Equipe> listarTodas() {
-    return equipeRepository.findAll();
-}
+        return equipeRepository.findAll();
+    }
 
     public Equipe buscarPorId(Long id) {
     return equipeRepository.findById(id).orElse(null);

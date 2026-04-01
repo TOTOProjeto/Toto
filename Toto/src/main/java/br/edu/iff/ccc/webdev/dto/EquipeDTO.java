@@ -1,5 +1,6 @@
 package br.edu.iff.ccc.webdev.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +12,8 @@ public class EquipeDTO {
     private String nome;
     private String descricao;
     private Long responsavelId; 
-    private List<Long> membrosIds; // (ManyToMany)
+    // Inicializar para o Thymeleaf não crashar no select múltiplo
+    private List<Long> membrosIds = new ArrayList<>();
 
     public EquipeDTO() {
     }

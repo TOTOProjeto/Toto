@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{baseLayout :: baseHead}"></head>
+<body>
+<nav th:replace="~{baseLayout :: navbar}"></nav>
+<main>
+  <div class="toto-page-header">
+    <div class="container-xl">
+      <div class="d-flex align-items-center gap-3">
+        <a th:href="@{/diagramas}" class="btn btn-toto-outline btn-sm">&#8592; Voltar</a>
+        <h1 class="toto-page-title" th:text="${diagramaDTO.id != null} ? 'Editar Diagrama' : 'Novo Diagrama'">
+          Novo Diagrama
+        </h1>
+      </div>
+    </div>
+  </div>
+  <div class="container-xl py-3">
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+        <div class="toto-form-card">
+          <form th:action="${diagramaDTO.id != null} ? @{'/diagramas/' + ${diagramaDTO.id} + '/edit'} : @{/diagramas/new}"
+                th:object="${diagramaDTO}" method="post" novalidate>
+
+            <div class="mb-3">
+              <label class="toto-form-label">Nome <span class="text-danger">*</span></label>
+              <input type="text" th:field="*{nome}"
+                     th:class="${#fields.hasErrors('nome')} ? 'toto-form-control is-invalid' : 'toto-form-control'"
+                     placeholder="Ex: Sprint 01 — Backend"/>
+              <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="toto-invalid-feedback"></span>
+            </div>
+
+            <div class="mb-3">
+              <label class="toto-form-label">Descrição</label>
+              <textarea th:field="*{descricao}" rows="3" class="toto-form-control"
+                        placeholder="Descreva o propósito deste diagrama..."></textarea>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-6">
+                <label class="toto-form-label">Dono</label>
+                <select th:field="*{donoId}" class="toto-form-control">
+                  <option value="">Nenhum</option>
+                  <option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.nome}">Usuário</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <label class="toto-form-label">Equipe</label>
+                <select th:field="*{timeId}" class="toto-form-control">
+                  <option value="">Nenhuma</option>
+                  <option th:each="e : ${equipes}" th:value="${e.id}" th:text="${e.nome}">Equipe</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-toto flex-grow-1"
+                      th:text="${diagramaDTO.id != null} ? 'Salvar Alterações' : 'Criar Diagrama'">Salvar</button>
+              <a th:href="@{/diagramas}" class="btn btn-toto-outline">Cancelar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer th:replace="~{baseLayout :: footer}"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
