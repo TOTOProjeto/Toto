@@ -44,10 +44,11 @@
 
             <div class="mb-3">
               <label for="responsavelId" class="toto-form-label">Responsável (Líder)</label>
+              <!-- FIX: th:value="${null}" garante que a opção vazia envia null, não string vazia -->
               <select id="responsavelId" th:field="*{responsavelId}" class="toto-form-control">
-                <option value="">Selecione um responsável</option>
-                <option th:each="usuario : ${usuarios}" 
-                        th:value="${usuario.id}" 
+                <option th:value="${null}">-- Nenhum --</option>
+                <option th:each="usuario : ${usuarios}"
+                        th:value="${usuario.id}"
                         th:text="${usuario.nome}">Usuário</option>
               </select>
             </div>
@@ -58,8 +59,8 @@
                 Segure <strong>Ctrl</strong> (Windows) ou <strong>Cmd</strong> (Mac) para selecionar ou remover vários usuários.
               </div>
               <select id="membrosIds" th:field="*{membrosIds}" class="toto-form-control" multiple="multiple" style="height: 140px;">
-                <option th:each="usuario : ${usuarios}" 
-                        th:value="${usuario.id}" 
+                <option th:each="usuario : ${usuarios}"
+                        th:value="${usuario.id}"
                         th:text="${usuario.nome}">Usuário</option>
               </select>
             </div>

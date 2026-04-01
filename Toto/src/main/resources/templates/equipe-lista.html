@@ -14,7 +14,7 @@
           <p class="toto-page-subtitle">Gerencie os times de trabalho e seus membros.</p>
         </div>
         <a th:href="@{/equipes/new}" class="btn btn-toto d-flex align-items-center gap-2">
-          <span>＋</span> Nova Equipe
+          <span>+</span> Nova Equipe
         </a>
       </div>
     </div>
@@ -23,31 +23,17 @@
   <div class="container-xl py-3">
     <div th:replace="~{baseLayout :: flashMessages}"></div>
 
-    <div class="row g-3" th:if="${equipes != null and !equipes.isEmpty()}">
-      <div class="col-sm-6 col-md-4 col-lg-3" th:each="eq : ${equipes}" th:if="${eq != null}">
+    <div th:if="${equipes != null and !equipes.isEmpty()}" class="row g-3">
+      <div th:each="equipe : ${equipes}" class="col-sm-6 col-md-4 col-lg-3">
         <div class="toto-card p-3 d-flex flex-column h-100">
-          
-          <div class="toto-logo-badge mb-2" style="background: #DBEAFE; color: #1D4ED8; font-size: 1.1rem;">
-            👥
+          <div class="toto-logo-badge mb-2" style="background: #DBEAFE; color: #1D4ED8;">
+            Equipe
           </div>
-          
-          <h6 class="fw-600 mb-1" th:text="${eq.nome}">Nome da Equipe</h6>
-          <p class="text-muted small mb-3 flex-grow-1" th:text="${eq.descricao ?: 'Sem descrição'}">Descrição</p>
-          
-          <div class="text-muted small mb-3 p-2 rounded" style="background-color: var(--toto-bg);">
-            <div class="mb-1">
-              <strong>Responsável:</strong> 
-              <span th:text="${eq.responsavel?.nome ?: 'Nenhum'}"></span>
-            </div>
-            <div>
-              <strong>Membros:</strong> 
-              <span th:text="${eq.membros?.size() ?: 0}">0</span>
-            </div>
-          </div>
-
+          <h6 class="fw-600 mb-1" th:text="${equipe.nome}">Nome</h6>
+          <p class="text-muted small mb-3 flex-grow-1" th:text="${equipe.descricao != null ? equipe.descricao : 'Sem descrição'}">Desc</p>
           <div class="d-flex gap-2 mt-auto">
-            <a th:href="@{'/equipes/' + ${eq.id} + '/edit'}" class="btn btn-toto-outline btn-sm flex-grow-1">Editar</a>
-            <form th:action="@{'/equipes/' + ${eq.id} + '/delete'}" method="post" 
+            <a th:href="@{'/equipes/' + ${equipe.id} + '/edit'}" class="btn btn-toto-outline btn-sm flex-grow-1">Editar</a>
+            <form th:action="@{'/equipes/' + ${equipe.id} + '/delete'}" method="post"
                   onsubmit="return confirm('Tem certeza que deseja excluir esta equipe?')">
               <button type="submit" class="toto-action-btn danger" title="Excluir">🗑</button>
             </form>
@@ -64,9 +50,8 @@
     </div>
 
     <div th:if="${equipes == null or equipes.isEmpty()}" class="toto-empty">
-      <div class="toto-empty-icon">👥</div>
       <h5>Nenhuma equipe encontrada</h5>
-      <p class="mb-3">Comece agrupando seus usuários em equipes de trabalho.</p>
+      <p class="mb-3">Crie uma equipe para organizar seus membros.</p>
       <a th:href="@{/equipes/new}" class="btn btn-toto">Criar primeira equipe</a>
     </div>
   </div>

@@ -1,12 +1,16 @@
 package br.edu.iff.ccc.webdev.controller.view;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,9 +33,18 @@ public class EquipeViewController {
     @Autowired
     private UsuarioService usuarioService;
 
+    // FIX: converte string vazia ("") para null em campos Long,
+    // evitando o erro 500 quando o select de responsável não é preenchido.
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Long.class, new CustomNumberEditor(Long.class, true));
+    }
+
     @GetMapping
     public String listar(Model model) {
-        model.addAttribute("equipes", equipeService.listarTodas());
+        List<Equipe> equipes = equipeService.listarTodas();
+        // FIX: garante que nunca passe null para o template
+        model.addAttribute("equipes", equipes != null ? equipes : java.util.Collections.emptyList());
         return "equipe-lista";
     }
 
@@ -64,12 +77,12 @@ public class EquipeViewController {
             ra.addFlashAttribute("errorMessage", "Equipe não encontrada.");
             return "redirect:/equipes";
         }
-        
+
         EquipeDTO dto = new EquipeDTO();
         dto.setId(e.getId());
         dto.setNome(e.getNome());
         dto.setDescricao(e.getDescricao());
-        
+
         if (e.getResponsavel() != null) {
             dto.setResponsavelId(e.getResponsavel().getId());
         }
@@ -78,7 +91,7 @@ public class EquipeViewController {
                 .map(br.edu.iff.ccc.webdev.entities.Usuario::getId)
                 .collect(Collectors.toList()));
         }
-        
+
         model.addAttribute("equipeDTO", dto);
         carregarOpcoes(model);
         return "equipe-form";
@@ -112,7 +125,6 @@ public class EquipeViewController {
     }
 
     private void carregarOpcoes(Model model) {
-        // Carrega a lista de usuários para preencher os <select> no formulário
         model.addAttribute("usuarios", usuarioService.listarTodos());
     }
 }
