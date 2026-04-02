@@ -25,30 +25,28 @@
       <div class="col-md-8 col-lg-6">
         <div class="toto-form-card">
 
-          <!-- O th:object vincula o formulário ao DTO -->
           <form th:action="${tarefaDTO.id != null} ? @{'/tarefas/' + ${tarefaDTO.id} + '/edit'} : @{/tarefas/new}"
                 th:object="${tarefaDTO}" method="post" novalidate>
 
-            <!-- Nome / Título -->
+            <!-- Titulo -->
             <div class="mb-3">
-              <label for="nome" class="toto-form-label">Título <span class="text-danger">*</span></label>
+              <label for="nome" class="toto-form-label">Titulo <span class="text-danger">*</span></label>
               <input type="text" id="nome" th:field="*{nome}"
                      th:class="${#fields.hasErrors('nome')} ? 'toto-form-control is-invalid' : 'toto-form-control'"
-                     placeholder="Ex: Revisar documentação de API"/>
-              <!-- th:errors exibe a mensagem de validação do Bean Validation -->
+                     placeholder="Ex: Revisar documentacao de API"/>
               <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="toto-invalid-feedback"></span>
             </div>
 
-            <!-- Descrição -->
+            <!-- Descricao -->
             <div class="mb-3">
-              <label for="descricao" class="toto-form-label">Descrição <span class="text-danger">*</span></label>
+              <label for="descricao" class="toto-form-label">Descricao <span class="text-danger">*</span></label>
               <textarea id="descricao" th:field="*{descricao}" rows="3"
                         th:class="${#fields.hasErrors('descricao')} ? 'toto-form-control is-invalid' : 'toto-form-control'"
                         placeholder="Descreva o que precisa ser feito..."></textarea>
               <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="toto-invalid-feedback"></span>
             </div>
 
-            <!-- Prazo + Prioridade lado a lado -->
+            <!-- Prazo e Prioridade -->
             <div class="row g-3 mb-3">
               <div class="col-6">
                 <label for="prazo" class="toto-form-label">Prazo</label>
@@ -61,24 +59,24 @@
                 <select id="prioridade" th:field="*{prioridade}"
                         th:class="${#fields.hasErrors('prioridade')} ? 'toto-form-control is-invalid' : 'toto-form-control'">
                   <option value="">Selecione...</option>
-                  <option value="1">1 — Baixíssima</option>
-                  <option value="2">2 — Baixa</option>
-                  <option value="3">3 — Média</option>
-                  <option value="4">4 — Alta</option>
-                  <option value="5">5 — Urgente</option>
+                  <option value="1">1 - Baixissima</option>
+                  <option value="2">2 - Baixa</option>
+                  <option value="3">3 - Media</option>
+                  <option value="4">4 - Alta</option>
+                  <option value="5">5 - Urgente</option>
                 </select>
                 <span th:if="${#fields.hasErrors('prioridade')}" th:errors="*{prioridade}" class="toto-invalid-feedback"></span>
               </div>
             </div>
 
-            <!-- Responsável -->
+            <!-- Responsavel -->
             <div class="mb-3">
-              <label for="usuarioId" class="toto-form-label">Responsável</label>
+              <label for="usuarioId" class="toto-form-label">Responsavel</label>
               <select id="usuarioId" th:field="*{usuarioId}" class="toto-form-control">
-                <option value="">Nenhum responsável</option>
+                <option value="">Nenhum responsavel</option>
                 <option th:each="usuario : ${usuarios}"
                         th:value="${usuario.id}"
-                        th:text="${usuario.nome}">Usuário</option>
+                        th:text="${usuario.nome}">Usuario</option>
               </select>
             </div>
 
@@ -93,22 +91,34 @@
               </select>
             </div>
 
-            <!-- Partição (Status) -->
+            <!-- Status (Particao) -->
             <div class="mb-4">
-              <label for="particaoId" class="toto-form-label">Status (Partição)</label>
+              <label for="particaoId" class="toto-form-label">Status (Particao)</label>
+
+              <div th:if="${particoes == null or particoes.isEmpty()}"
+                   class="small mb-2 p-2 rounded"
+                   style="background: #FEF9C3; color: #92400E; border: 1px solid #FDE68A;">
+                Nenhuma particao cadastrada.
+                <a th:href="@{/diagramas}" style="color: #92400E; font-weight: 600;">
+                  Crie particoes em um Diagrama
+                </a>
+                para usa-las aqui.
+              </div>
+
               <select id="particaoId" th:field="*{particaoId}" class="toto-form-control">
                 <option value="">Sem status</option>
                 <option th:each="particao : ${particoes}"
                         th:value="${particao.id}"
-                        th:text="${particao.nome}">Partição</option>
+                        th:text="${particao.nome + (particao.diagrama != null ? ' (' + particao.diagrama.nome + ')' : '')}">
+                  Particao
+                </option>
               </select>
             </div>
 
-            <!-- Botões de ação -->
+            <!-- Botoes -->
             <div class="d-flex gap-2">
-              <button type="submit" class="btn btn-toto flex-grow-1">
-                <span th:text="${tarefaDTO.id != null} ? 'Salvar Alterações' : 'Criar Tarefa'">Salvar</span>
-              </button>
+              <button type="submit" class="btn btn-toto flex-grow-1"
+                      th:text="${tarefaDTO.id != null} ? 'Salvar Alteracoes' : 'Criar Tarefa'">Salvar</button>
               <a th:href="@{/tarefas}" class="btn btn-toto-outline">Cancelar</a>
             </div>
 

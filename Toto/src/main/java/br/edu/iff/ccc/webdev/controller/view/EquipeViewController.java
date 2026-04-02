@@ -1,5 +1,6 @@
 package br.edu.iff.ccc.webdev.controller.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,22 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.iff.ccc.webdev.dto.EquipeDTO;
 import br.edu.iff.ccc.webdev.entities.Equipe;
 import br.edu.iff.ccc.webdev.service.EquipeService;
 import br.edu.iff.ccc.webdev.service.UsuarioService;
-import jakarta.validation.Valid;
 
+@SuppressWarnings("unused")
 @Controller
 @RequestMapping("/equipes")
 public class EquipeViewController {
@@ -33,8 +33,6 @@ public class EquipeViewController {
     @Autowired
     private UsuarioService usuarioService;
 
-    // FIX: converte string vazia ("") para null em campos Long,
-    // evitando o erro 500 quando o select de responsável não é preenchido.
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Long.class, new CustomNumberEditor(Long.class, true));
@@ -42,9 +40,7 @@ public class EquipeViewController {
 
     @GetMapping
     public String listar(Model model) {
-        List<Equipe> equipes = equipeService.listarTodas();
-        // FIX: garante que nunca passe null para o template
-        model.addAttribute("equipes", equipes != null ? equipes : java.util.Collections.emptyList());
+        model.addAttribute("equipes", equipeService.listarTodas());
         return "equipe-lista";
     }
 
@@ -55,12 +51,29 @@ public class EquipeViewController {
         return "equipe-form";
     }
 
+
     @PostMapping("/new")
-    public String salvar(@Valid @ModelAttribute("equipeDTO") EquipeDTO dto, BindingResult br, Model model, RedirectAttributes ra) {
-        if (br.hasErrors()) {
+    public String salvar(
+            @RequestParam String nome,
+            @RequestParam(required = false) String descricao,
+            @RequestParam(required = false) Long responsavelId,
+            @RequestParam(name = "membrosIds", required = false) List<Long> membrosIds,
+            Model model,
+            RedirectAttributes ra) {
+
+        EquipeDTO dto = new EquipeDTO();
+        dto.setNome(nome);
+        dto.setDescricao(descricao);
+        dto.setResponsavelId(responsavelId);
+        dto.setMembrosIds(membrosIds != null ? membrosIds : new ArrayList<>());
+
+        if (nome == null || nome.isBlank()) {
+            model.addAttribute("equipeDTO", dto);
+            model.addAttribute("nomeError", "Nome da equipe é obrigatório");
             carregarOpcoes(model);
             return "equipe-form";
         }
+
         try {
             equipeService.salvar(dto);
             ra.addFlashAttribute("successMessage", "Equipe criada com sucesso!");
@@ -82,10 +95,7 @@ public class EquipeViewController {
         dto.setId(e.getId());
         dto.setNome(e.getNome());
         dto.setDescricao(e.getDescricao());
-
-        if (e.getResponsavel() != null) {
-            dto.setResponsavelId(e.getResponsavel().getId());
-        }
+        if (e.getResponsavel() != null) dto.setResponsavelId(e.getResponsavel().getId());
         if (e.getMembros() != null && !e.getMembros().isEmpty()) {
             dto.setMembrosIds(e.getMembros().stream()
                 .map(br.edu.iff.ccc.webdev.entities.Usuario::getId)
@@ -98,12 +108,29 @@ public class EquipeViewController {
     }
 
     @PostMapping("/{id}/edit")
-    public String atualizar(@PathVariable Long id, @Valid @ModelAttribute("equipeDTO") EquipeDTO dto, BindingResult br, Model model, RedirectAttributes ra) {
-        if (br.hasErrors()) {
-            dto.setId(id);
+    public String atualizar(
+            @PathVariable Long id,
+            @RequestParam String nome,
+            @RequestParam(required = false) String descricao,
+            @RequestParam(required = false) Long responsavelId,
+            @RequestParam(name = "membrosIds", required = false) List<Long> membrosIds,
+            Model model,
+            RedirectAttributes ra) {
+
+        EquipeDTO dto = new EquipeDTO();
+        dto.setId(id);
+        dto.setNome(nome);
+        dto.setDescricao(descricao);
+        dto.setResponsavelId(responsavelId);
+        dto.setMembrosIds(membrosIds != null ? membrosIds : new ArrayList<>());
+
+        if (nome == null || nome.isBlank()) {
+            model.addAttribute("equipeDTO", dto);
+            model.addAttribute("nomeError", "Nome da equipe é obrigatório");
             carregarOpcoes(model);
             return "equipe-form";
         }
+
         try {
             equipeService.atualizar(id, dto);
             ra.addFlashAttribute("successMessage", "Equipe atualizada com sucesso!");

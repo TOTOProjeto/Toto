@@ -9,12 +9,12 @@
   <div class="toto-page-header">
     <div class="container-xl">
       <div class="d-flex align-items-center gap-3">
-        <a th:href="@{/equipes}" class="btn btn-toto-outline btn-sm">← Voltar</a>
+        <a th:href="@{/equipes}" class="btn btn-toto-outline btn-sm">&#8592; Voltar</a>
         <div>
-          <h1 class="toto-page-title" th:text="${equipeDTO.id != null} ? 'Editar Equipe' : 'Nova Equipe'">
-            Nova Equipe
-          </h1>
-          <p class="toto-page-subtitle" th:text="${equipeDTO.id != null} ? 'Altere os dados da equipe abaixo.' : 'Preencha os dados para agrupar seus usuários.'"></p>
+          <h1 class="toto-page-title"
+              th:text="${equipeDTO.id != null} ? 'Editar Equipe' : 'Nova Equipe'">Nova Equipe</h1>
+          <p class="toto-page-subtitle"
+             th:text="${equipeDTO.id != null} ? 'Altere os dados da equipe abaixo.' : 'Preencha os dados para agrupar seus usuarios.'"></p>
         </div>
       </div>
     </div>
@@ -26,48 +26,83 @@
         <div class="toto-form-card">
 
           <form th:action="${equipeDTO.id != null} ? @{'/equipes/' + ${equipeDTO.id} + '/edit'} : @{/equipes/new}"
-                th:object="${equipeDTO}" method="post" novalidate>
+                method="post" novalidate>
 
+            <!-- Nome -->
             <div class="mb-3">
               <label for="nome" class="toto-form-label">Nome da Equipe <span class="text-danger">*</span></label>
-              <input type="text" id="nome" th:field="*{nome}"
-                     th:class="${#fields.hasErrors('nome')} ? 'toto-form-control is-invalid' : 'toto-form-control'"
-                     placeholder="Ex: Equipe de Backend"/>
-              <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="toto-invalid-feedback"></span>
+              <input type="text" id="nome" name="nome"
+                     th:value="${equipeDTO.nome}"
+                     th:class="${nomeError != null} ? 'toto-form-control is-invalid' : 'toto-form-control'"
+                     placeholder="Ex: Equipe de Backend" required/>
+              <span th:if="${nomeError}" th:text="${nomeError}" class="toto-invalid-feedback"></span>
             </div>
 
+            <!-- Descricao -->
             <div class="mb-3">
-              <label for="descricao" class="toto-form-label">Descrição</label>
-              <textarea id="descricao" th:field="*{descricao}" rows="3" class="toto-form-control"
-                        placeholder="Descreva o propósito da equipe..."></textarea>
+              <label for="descricao" class="toto-form-label">Descricao</label>
+              <textarea id="descricao" name="descricao" rows="3" class="toto-form-control"
+                        placeholder="Descreva o proposito da equipe..."
+                        th:text="${equipeDTO.descricao}"></textarea>
             </div>
 
+            <!-- Responsavel -->
             <div class="mb-3">
-              <label for="responsavelId" class="toto-form-label">Responsável (Líder)</label>
-              <!-- FIX: th:value="${null}" garante que a opção vazia envia null, não string vazia -->
-              <select id="responsavelId" th:field="*{responsavelId}" class="toto-form-control">
-                <option th:value="${null}">-- Nenhum --</option>
+              <label for="responsavelId" class="toto-form-label">Responsavel (Lider)</label>
+              <select id="responsavelId" name="responsavelId" class="toto-form-control">
+                <option value="">-- Nenhum --</option>
                 <option th:each="usuario : ${usuarios}"
                         th:value="${usuario.id}"
-                        th:text="${usuario.nome}">Usuário</option>
+                        th:text="${usuario.nome}"
+                        th:selected="${equipeDTO.responsavelId != null and equipeDTO.responsavelId == usuario.id}">
+                  Usuario
+                </option>
               </select>
             </div>
 
+            <!-- Membros com checkboxes -->
             <div class="mb-4">
-              <label for="membrosIds" class="toto-form-label">Membros da Equipe</label>
-              <div class="small text-muted mb-2">
-                Segure <strong>Ctrl</strong> (Windows) ou <strong>Cmd</strong> (Mac) para selecionar ou remover vários usuários.
+              <label class="toto-form-label">Membros da Equipe</label>
+              <p class="small text-muted mb-3">
+                Marque os usuarios que fazem parte desta equipe.
+              </p>
+
+              <div th:if="${usuarios == null or usuarios.isEmpty()}"
+                   style="padding:1rem; text-align:center; color: var(--toto-muted); font-size:0.875rem;">
+                Nenhum usuario cadastrado ainda.
               </div>
-              <select id="membrosIds" th:field="*{membrosIds}" class="toto-form-control" multiple="multiple" style="height: 140px;">
-                <option th:each="usuario : ${usuarios}"
-                        th:value="${usuario.id}"
-                        th:text="${usuario.nome}">Usuário</option>
-              </select>
+
+              <div class="d-flex flex-column gap-2" th:if="${usuarios != null and !usuarios.isEmpty()}">
+                <label th:each="usuario : ${usuarios}"
+                       th:for="${'membro-' + usuario.id}"
+                       style="display:flex; align-items:center; gap:12px; padding:10px 14px;
+                              border:1px solid var(--toto-border); border-radius:8px;
+                              background:var(--toto-bg); cursor:pointer; margin:0;
+                              transition: border-color .15s, background .15s;">
+
+                  <input type="checkbox"
+                         th:id="${'membro-' + usuario.id}"
+                         name="membrosIds"
+                         th:value="${usuario.id}"
+                         th:checked="${equipeDTO.membrosIds != null and #lists.contains(equipeDTO.membrosIds, usuario.id)}"
+                         style="width:18px; height:18px; accent-color: var(--toto-yellow-dark);
+                                cursor:pointer; flex-shrink:0; margin:0;"/>
+
+                  <div style="display:flex; flex-direction:column; gap:1px; min-width:0;">
+                    <span style="font-size:0.9rem; font-weight:500; color:var(--toto-text);"
+                          th:text="${usuario.nome}">Nome</span>
+                    <span style="font-size:0.75rem; color:var(--toto-muted);"
+                          th:if="${usuario.email != null}"
+                          th:text="${usuario.email}">email</span>
+                  </div>
+                </label>
+              </div>
             </div>
 
             <div class="d-flex gap-2">
-              <button type="submit" class="btn btn-toto flex-grow-1">
-                <span th:text="${equipeDTO.id != null} ? 'Salvar Alterações' : 'Criar Equipe'">Salvar</span>
+              <button type="submit" class="btn btn-toto flex-grow-1"
+                      th:text="${equipeDTO.id != null} ? 'Salvar Alteracoes' : 'Criar Equipe'">
+                Salvar
               </button>
               <a th:href="@{/equipes}" class="btn btn-toto-outline">Cancelar</a>
             </div>
