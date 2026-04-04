@@ -38,6 +38,33 @@ public class GlobalViewAdvice {
         return "error/404";
     }
 
+    @ExceptionHandler(DiagramaNaoEncontrado.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleDiagramaNaoEncontrado(DiagramaNaoEncontrado ex, Model model) {
+        model.addAttribute("status", 404);
+        model.addAttribute("titulo", "Diagrama não encontrado");
+        model.addAttribute("mensagem", ex.getMessage());
+        return "error/404";
+    }
+
+    @ExceptionHandler(UsuarioNaoEncontrado.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleUsuarioNaoEncontrado(UsuarioNaoEncontrado ex, Model model) {
+        model.addAttribute("status", 404);
+        model.addAttribute("titulo", "Usuário não encontrado");
+        model.addAttribute("mensagem", ex.getMessage());
+        return "error/404";
+    }
+
+    @ExceptionHandler(EquipeNaoEncontrada.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleEquipeNaoEncontrada(EquipeNaoEncontrada ex, Model model) {
+        model.addAttribute("status", 404);
+        model.addAttribute("titulo", "Equipe não encontrada");
+        model.addAttribute("mensagem", ex.getMessage());
+        return "error/404";
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String handleGenericError(Exception ex, Model model) {

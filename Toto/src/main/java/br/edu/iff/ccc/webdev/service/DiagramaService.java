@@ -10,6 +10,7 @@ import br.edu.iff.ccc.webdev.dto.DiagramaDTO;
 import br.edu.iff.ccc.webdev.entities.Diagrama;
 import br.edu.iff.ccc.webdev.entities.Equipe;
 import br.edu.iff.ccc.webdev.entities.Usuario;
+import br.edu.iff.ccc.webdev.exception.DiagramaNaoEncontrado;
 import br.edu.iff.ccc.webdev.repository.DiagramaRepository;
 import br.edu.iff.ccc.webdev.repository.EquipeRepository;
 import br.edu.iff.ccc.webdev.repository.UsuarioRepository;
@@ -52,30 +53,32 @@ public class DiagramaService {
     }
 
     public Diagrama buscarPorId(Integer id) {
-        return diagramaRepository.findById(id).orElse(null);
+        return diagramaRepository.findById(id)
+            .orElseThrow(() -> new DiagramaNaoEncontrado("Diagrama #" + id + " não encontrado."));
     }
 
     @Transactional
     public Diagrama atualizar(Integer id, DiagramaDTO dto) {
-        Diagrama diagramaExistente = diagramaRepository.findById(id).orElse(null);
-        
-        if (diagramaExistente == null) {
-            return null;
-        }
+        Diagrama diagramaExistente = diagramaRepository.findById(id)
+            .orElseThrow(() -> new DiagramaNaoEncontrado("Diagrama #" + id + " não encontrado."));
 
         diagramaExistente.setNome(dto.getNome());
         diagramaExistente.setDescricao(dto.getDescricao());
-        
+
         if (dto.getDonoId() != null) {
             Usuario dono = usuarioRepository.findById(dto.getDonoId())
                 .orElseThrow(() -> new RuntimeException("Usuário (Dono) não encontrado ao atualizar"));
             diagramaExistente.setDono(dono);
+        } else {
+            diagramaExistente.setDono(null);
         }
 
         if (dto.getTimeId() != null) {
             Equipe time = equipeRepository.findById(dto.getTimeId())
                 .orElseThrow(() -> new RuntimeException("Equipe não encontrada ao atualizar"));
             diagramaExistente.setTime(time);
+        } else {
+            diagramaExistente.setTime(null);
         }
 
         return diagramaRepository.save(diagramaExistente);

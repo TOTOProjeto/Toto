@@ -32,12 +32,8 @@ public class DiagramaViewController {
     }
 
     @GetMapping("/{id}")
-    public String detalhe(@PathVariable Integer id, Model model, RedirectAttributes ra) {
+    public String detalhe(@PathVariable Integer id, Model model) {
         Diagrama d = diagramaService.buscarPorId(id);
-        if (d == null) {
-            ra.addFlashAttribute("errorMessage", "Diagrama #" + id + " não encontrado.");
-            return "redirect:/diagramas";
-        }
         model.addAttribute("diagrama", d);
         return "diagrama-detalhes";
     }
@@ -52,7 +48,10 @@ public class DiagramaViewController {
     @PostMapping("/new")
     public String salvar(@Valid DiagramaDTO dto, BindingResult br, Model model,
                          RedirectAttributes ra) {
-        if (br.hasErrors()) { carregarForm(model); return "diagrama-form"; }
+        if (br.hasErrors()) {
+            carregarForm(model);
+            return "diagrama-form";
+        }
         try {
             diagramaService.salvar(dto);
             ra.addFlashAttribute("successMessage", "Diagrama criado com sucesso!");
@@ -63,9 +62,8 @@ public class DiagramaViewController {
     }
 
     @GetMapping("/{id}/edit")
-    public String formEditar(@PathVariable Integer id, Model model, RedirectAttributes ra) {
+    public String formEditar(@PathVariable Integer id, Model model) {
         Diagrama d = diagramaService.buscarPorId(id);
-        if (d == null) { ra.addFlashAttribute("errorMessage", "Diagrama não encontrado."); return "redirect:/diagramas"; }
 
         DiagramaDTO dto = new DiagramaDTO();
         dto.setId(d.getId());
@@ -82,7 +80,12 @@ public class DiagramaViewController {
     @PostMapping("/{id}/edit")
     public String atualizar(@PathVariable Integer id, @Valid DiagramaDTO dto,
                              BindingResult br, Model model, RedirectAttributes ra) {
-        if (br.hasErrors()) { dto.setId(id); model.addAttribute("diagramaDTO", dto); carregarForm(model); return "diagrama-form"; }
+        if (br.hasErrors()) {
+            dto.setId(id);
+            model.addAttribute("diagramaDTO", dto);
+            carregarForm(model);
+            return "diagrama-form";
+        }
         try {
             diagramaService.atualizar(id, dto);
             ra.addFlashAttribute("successMessage", "Diagrama atualizado com sucesso!");

@@ -36,7 +36,8 @@ public class UsuarioViewController {
     }
 
     @PostMapping("/new")
-    public String salvar(@Valid @ModelAttribute("usuarioDTO") UsuarioDTO dto, BindingResult br, RedirectAttributes ra) {
+    public String salvar(@Valid @ModelAttribute("usuarioDTO") UsuarioDTO dto,
+                         BindingResult br, RedirectAttributes ra) {
         if (br.hasErrors()) {
             return "usuario-form";
         }
@@ -50,23 +51,22 @@ public class UsuarioViewController {
     }
 
     @GetMapping("/{id}/edit")
-    public String formEditar(@PathVariable Long id, Model model, RedirectAttributes ra) {
+    public String formEditar(@PathVariable Long id, Model model) {
         Usuario u = usuarioService.buscarPorId(id);
-        if (u == null) {
-            ra.addFlashAttribute("errorMessage", "Usuário não encontrado.");
-            return "redirect:/usuarios";
-        }
+
         UsuarioDTO dto = new UsuarioDTO();
         dto.setId(u.getId());
         dto.setNome(u.getNome());
         dto.setEmail(u.getEmail());
-        
+
         model.addAttribute("usuarioDTO", dto);
         return "usuario-form";
     }
 
     @PostMapping("/{id}/edit")
-    public String atualizar(@PathVariable Long id, @Valid @ModelAttribute("usuarioDTO") UsuarioDTO dto, BindingResult br, RedirectAttributes ra) {
+    public String atualizar(@PathVariable Long id,
+                            @Valid @ModelAttribute("usuarioDTO") UsuarioDTO dto,
+                            BindingResult br, RedirectAttributes ra) {
         if (br.hasErrors()) {
             dto.setId(id);
             return "usuario-form";

@@ -23,7 +23,6 @@
   <div class="container-xl py-3">
     <div th:replace="~{baseLayout :: flashMessages}"></div>
 
-    <!-- Tabela de tarefas -->
     <div class="toto-table" th:if="${tarefas != null and !tarefas.isEmpty()}">
       <table class="table table-borderless mb-0">
         <thead>
@@ -69,7 +68,7 @@
               <div class="d-flex gap-1">
                 <a th:href="@{'/tarefas/' + ${tarefa.id}}" class="toto-action-btn" title="Ver detalhes">&#128269;</a>
                 <a th:href="@{'/tarefas/' + ${tarefa.id} + '/edit'}" class="toto-action-btn" title="Editar">&#9998;</a>
-                <!-- Formulário de exclusão via POST -->
+
                 <form th:action="@{'/tarefas/' + ${tarefa.id} + '/delete'}" method="post" style="display:inline;"
                       onsubmit="return confirm('Confirmar exclusão desta tarefa?')">
                   <input type="hidden" name="_method" value="delete"/>
@@ -82,7 +81,6 @@
       </table>
     </div>
 
-    <!-- Estado vazio -->
     <div th:if="${tarefas == null or tarefas.isEmpty()}" class="toto-empty">
       <div class="toto-empty-icon">&#10003;</div>
       <h5>Nenhuma tarefa encontrada</h5>
