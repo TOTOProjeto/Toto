@@ -90,4 +90,8 @@ public class UsuarioViewController {
         }
         return "redirect:/usuarios";
     }
+    @GetMapping("/teste-500")
+    public String teste500() {
+        throw new RuntimeException("Erro de teste");
+    }
 }
