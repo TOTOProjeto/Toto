@@ -38,7 +38,7 @@
             <a th:href="@{'/usuarios/' + ${u.id} + '/edit'}" class="btn btn-toto-outline btn-sm flex-grow-1">Editar</a>
             <form th:action="@{'/usuarios/' + ${u.id} + '/delete'}" method="post" 
                   onsubmit="return confirm('Excluir este usuário também removerá ele das equipes. Tem certeza?')">
-              <button type="submit" class="toto-action-btn danger" title="Excluir">🗑</button>
+              <button type="submit" class="toto-action-btn danger" style="font-size: 0.60rem; padding: 2px 8px;"title="Excluir">Excluir</button>
             </form>
           </div>
         </div>
