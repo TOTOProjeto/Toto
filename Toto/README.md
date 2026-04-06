@@ -154,28 +154,28 @@ http://localhost:8080/h2-console
 ### Listagem de Usuários
 Tela principal de gerenciamento de membros do sistema, com opções de editar e excluir cada usuário.
 
-![Listagem de Usuários](docs/prints/listagem-usuarios.jpeg)
+![Listagem de Usuários](Toto/docs/Listagem_de_Usuários.jpeg)
 
 ---
 
 ### Cadastro de Usuário
 Formulário para criação de novos usuários, com campos de Nome Completo e E-mail.
 
-![Cadastro de Usuário](docs/prints/cadastro-usuario.jpeg)
+![Cadastro de Usuário](Toto/docs/Cadastro_de_Usuário.jpeg)
 
 ---
 
 ### Erro 404 — Página não encontrada
 Tela customizada exibida quando o usuário acessa uma rota inexistente.
 
-![Erro 404](docs/prints/erro404.jpeg)
+![Erro 404](Toto/docs/erro404.jpeg)
 
 ---
 
 ### Erro 500 — Erro interno do servidor
 Tela customizada exibida quando ocorre um erro inesperado na aplicação.
 
-![Erro 500](docs/prints/erro500.jpeg)
+![Erro 500](Toto/docs/erro500.jpeg)
 
 ---
 
