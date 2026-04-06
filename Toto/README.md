@@ -150,37 +150,35 @@ http://localhost:8080/h2-console
 ---
 
 ## Guia de Telas
-
+ 
 ### Listagem de Usuários
 Tela principal de gerenciamento de membros do sistema, com opções de editar e excluir cada usuário.
-
-![Listagem de Usuários](Toto/docs/Listagem_de_Usuários.jpeg)
-
+ 
+![Listagem de Usuários](docs/Listagem_de_Usuários.jpeg)
+ 
 ---
-
+ 
 ### Cadastro de Usuário
 Formulário para criação de novos usuários, com campos de Nome Completo e E-mail.
-
-![Cadastro de Usuário](Toto/docs/Cadastro_de_Usuário.jpeg)
-
+ 
+![Cadastro de Usuário](docs/Cadastro_de_Usuário.jpeg)
+ 
 ---
-
+ 
 ### Erro 404 — Página não encontrada
 Tela customizada exibida quando o usuário acessa uma rota inexistente.
-
-![Erro 404](Toto/docs/erro404.jpeg)
-
+ 
+![Erro 404](docs/erro404.jpeg)
+ 
 ---
-
+ 
 ### Erro 500 — Erro interno do servidor
 Tela customizada exibida quando ocorre um erro inesperado na aplicação.
-
-![Erro 500](Toto/docs/erro500.jpeg)
-
+ 
+![Erro 500](docs/erro500.jpeg)
+ 
 ---
-
+ 
 ## 🔖 Release
-
-[📦 Versão Final v2.0](https://github.com/TOTOProjeto/Toto/releases/tag/v2.0)
-
-**Toto — Gestão de projetos simples, visual e colaborativa.**
+ 
+[📦 Versão Final v2.0](https://github.com/TOTOProjeto/Toto/releases/tag/v2.0.0-p2)
