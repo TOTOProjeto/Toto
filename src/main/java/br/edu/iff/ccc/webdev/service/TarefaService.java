@@ -10,13 +10,13 @@ import br.edu.iff.ccc.webdev.entities.Equipe;
 import br.edu.iff.ccc.webdev.entities.Particao;
 import br.edu.iff.ccc.webdev.entities.Tarefa;
 import br.edu.iff.ccc.webdev.entities.Usuario;
+import br.edu.iff.ccc.webdev.exception.TarefaNaoEncontrada;
 import br.edu.iff.ccc.webdev.repository.EquipeRepository;
 import br.edu.iff.ccc.webdev.repository.LabelsRepository;
 import br.edu.iff.ccc.webdev.repository.ParticaoRepository;
 import br.edu.iff.ccc.webdev.repository.TarefaRepository;
 import br.edu.iff.ccc.webdev.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
-
 @Service
 public class TarefaService {
 
@@ -79,6 +79,10 @@ public class TarefaService {
         return tarefaRepository.save(tarefaExistente);
     }
 
+    public Tarefa buscarPorIdExcessaoTarefa(Long id) {
+    return tarefaRepository.findById(id)
+            .orElseThrow(() -> new TarefaNaoEncontrada("Tarefa com id " + id + " não encontrada no quadro."));
+}
     public List<Tarefa> buscarUrgentes(Integer prioridade) {
         return tarefaRepository.buscarUrgentesPorPrioridade(prioridade);
     }

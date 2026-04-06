@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{baseLayout :: baseHead}"></head>
+<body>
+
+<nav th:replace="~{baseLayout :: navbar}"></nav>
+
+<main>
+  <div class="toto-page-header">
+    <div class="container-xl">
+      <div class="d-flex align-items-start justify-content-between">
+        <div>
+          <h1 class="toto-page-title">Tarefas</h1>
+          <p class="toto-page-subtitle">Todas as tarefas cadastradas no sistema.</p>
+        </div>
+        <a th:href="@{/tarefas/new}" class="btn btn-toto d-flex align-items-center gap-2">
+          <span>＋</span> Nova Tarefa
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-xl py-3">
+    <div th:replace="~{baseLayout :: flashMessages}"></div>
+
+    <!-- Tabela de tarefas -->
+    <div class="toto-table" th:if="${tarefas != null and !tarefas.isEmpty()}">
+      <table class="table table-borderless mb-0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Título</th>
+            <th>Prioridade</th>
+            <th>Prazo</th>
+            <th>Responsável</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="tarefa : ${tarefas}">
+            <td class="text-muted" style="font-family: 'DM Mono', monospace; font-size: 0.8rem;">
+              #<span th:text="${tarefa.id}"></span>
+            </td>
+            <td>
+              <a th:href="@{'/tarefas/' + ${tarefa.id}}" class="fw-500 text-decoration-none text-dark"
+                 th:text="${tarefa.titulo}">Título da Tarefa</a>
+            </td>
+            <td>
+              <span th:class="${'toto-priority toto-priority-' + (tarefa.prioridade ?: 3)}"
+                    th:text="${'P' + (tarefa.prioridade ?: '-')}">P3</span>
+            </td>
+            <td>
+              <span th:if="${tarefa.prazo != null}" th:text="${#temporals.format(tarefa.prazo, 'dd/MM/yyyy')}"
+                    class="small">--/--/----</span>
+              <span th:if="${tarefa.prazo == null}" class="text-muted small">—</span>
+            </td>
+            <td>
+              <span th:if="${tarefa.responsavel != null}" th:text="${tarefa.responsavel.nome}" class="small">—</span>
+              <span th:if="${tarefa.responsavel == null}" class="text-muted small">Sem responsável</span>
+            </td>
+            <td>
+              <span th:if="${tarefa.status != null}" th:text="${tarefa.status.nome}"
+                    class="badge" style="background: var(--toto-yellow-light); color: var(--toto-text); font-weight: 500;">
+              </span>
+              <span th:if="${tarefa.status == null}" class="text-muted small">—</span>
+            </td>
+            <td>
+              <div class="d-flex gap-1">
+                <a th:href="@{'/tarefas/' + ${tarefa.id}}" class="toto-action-btn" title="Ver detalhes">&#128269;</a>
+                <a th:href="@{'/tarefas/' + ${tarefa.id} + '/edit'}" class="toto-action-btn" title="Editar">&#9998;</a>
+                <!-- Formulário de exclusão via POST -->
+                <form th:action="@{'/tarefas/' + ${tarefa.id} + '/delete'}" method="post" style="display:inline;"
+                      onsubmit="return confirm('Confirmar exclusão desta tarefa?')">
+                  <input type="hidden" name="_method" value="delete"/>
+                  <button type="submit" class="toto-action-btn danger" title="Excluir">&#128465;</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Estado vazio -->
+    <div th:if="${tarefas == null or tarefas.isEmpty()}" class="toto-empty">
+      <div class="toto-empty-icon">&#10003;</div>
+      <h5>Nenhuma tarefa encontrada</h5>
+      <p class="mb-3">Crie sua primeira tarefa para começar a organizar o trabalho.</p>
+      <a th:href="@{/tarefas/new}" class="btn btn-toto">Criar primeira tarefa</a>
+    </div>
+  </div>
+</main>
+
+<footer th:replace="~{baseLayout :: footer}"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -51,10 +51,14 @@ public class Tarefa implements Serializable {
     @JoinColumn(name = "equipe_id", nullable = true)
     private Equipe equipe;
 
+    // NOVOS RELACIONAMENTOS BASEADOS NO DIAGRAMA:
+
+    // Relação com Particao (Status)
     @ManyToOne
     @JoinColumn(name = "particao_id")
     private Particao status;
 
+    // Relação com Labels (Marcas do diagrama)
     @ManyToMany
     @JoinTable(
         name = "tarefa_labels",

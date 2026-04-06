@@ -17,13 +17,9 @@ public class MainViewController {
         this.diagramaService = diagramaService;
     }
 
-    @GetMapping()
-   public String paginaPrincipal() {
-      return "index.html";
-   }
+    @GetMapping
     public String paginaPrincipal(Model model) {
         model.addAttribute("diagramas", diagramaService.listarTodos());
         return "index";
     }
-
 }

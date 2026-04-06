@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{baseLayout :: baseHead}"></head>
+<body>
+
+<nav th:replace="~{baseLayout :: navbar}"></nav>
+
+<main>
+  <div class="toto-page-header">
+    <div class="container-xl">
+      <div class="d-flex align-items-center gap-3">
+        <a th:href="@{/diagramas}" class="btn btn-toto-outline btn-sm">&#8592; Diagramas</a>
+        <div>
+          <h1 class="toto-page-title" th:text="${diagrama.nome}">Diagrama</h1>
+          <p class="toto-page-subtitle"
+             th:text="${diagrama.descricao != null ? diagrama.descricao : 'Sem descrição'}"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-xl py-3">
+    <div th:replace="~{baseLayout :: flashMessages}"></div>
+
+    <div class="row g-4">
+
+      <!-- Coluna esquerda: partições (colunas Kanban) + form para criar partição -->
+      <div class="col-lg-8">
+
+        <!-- Partições existentes -->
+        <div th:if="${diagrama.particoes != null and !diagrama.particoes.isEmpty()}">
+          <h5 class="fw-600 mb-3" style="font-size: 1rem;">
+            Colunas do Quadro
+            <span class="badge ms-1" style="background: var(--toto-yellow-light); color: var(--toto-text); font-weight: 600; font-size: 0.75rem;"
+                  th:text="${#lists.size(diagrama.particoes)}"></span>
+          </h5>
+          <div class="row g-3">
+            <div class="col-sm-6 col-md-4" th:each="particao : ${diagrama.particoes}">
+              <div class="toto-card p-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="badge" style="background: var(--toto-yellow-light); color: var(--toto-text); font-weight: 600; font-size: 0.75rem;">
+                    Partição
+                  </span>
+                  <!-- Excluir partição -->
+                  <form th:action="@{'/particoes/' + ${particao.id} + '/delete'}" method="post"
+                        onsubmit="return confirm('Excluir esta partição?')">
+                    <button type="submit" class="toto-action-btn danger" style="width:24px;height:24px;font-size:0.7rem;"
+                            title="Excluir partição">&#10005;</button>
+                  </form>
+                </div>
+                <h6 class="fw-600 mb-1" th:text="${particao.nome}">Nome da partição</h6>
+                <p class="text-muted small mb-0"
+                   th:text="${#lists.size(particao.atividades) + ' tarefa(s)'}">0 tarefa(s)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estado vazio de partições -->
+        <div th:if="${diagrama.particoes == null or diagrama.particoes.isEmpty()}"
+             class="toto-empty" style="padding: 2rem;">
+          <div class="toto-empty-icon" style="font-size: 2rem;">&#9783;</div>
+          <h6>Nenhuma coluna criada</h6>
+          <p class="small text-muted">Adicione partições (colunas) ao quadro usando o formulário ao lado.</p>
+        </div>
+
+        <!-- Form criar nova partição -->
+        <div class="toto-form-card mt-4">
+          <h6 class="fw-600 mb-3" style="font-size: 0.95rem;">&#43; Adicionar coluna ao quadro</h6>
+          <form th:action="@{/particoes/new}" method="post" class="d-flex gap-2">
+            <!-- Passa o id do diagrama como hidden para o controller de partição criar já vinculada -->
+            <input type="hidden" name="diagramaId" th:value="${diagrama.id}"/>
+            <input type="text" name="nome" class="toto-form-control" required
+                   placeholder="Ex: A Fazer, Em Progresso, Concluído..."
+                   style="flex: 1;"/>
+            <button type="submit" class="btn btn-toto" style="white-space: nowrap;">Adicionar</button>
+          </form>
+          <p class="text-muted small mt-2 mb-0">
+            Essas colunas aparecem como opção de <strong>Status (Partição)</strong> ao criar tarefas.
+          </p>
+        </div>
+      </div>
+
+      <!-- Coluna direita: informações do diagrama -->
+      <div class="col-lg-4">
+        <div class="toto-detail-section mb-3">
+          <h6 class="fw-600 mb-3" style="font-size: 0.9rem;">Informações do Quadro</h6>
+
+          <div class="mb-3">
+            <div class="toto-detail-label">Nome</div>
+            <div class="toto-detail-value" th:text="${diagrama.nome}">—</div>
+          </div>
+
+          <div class="mb-3">
+            <div class="toto-detail-label">Descrição</div>
+            <div class="toto-detail-value"
+                 th:text="${diagrama.descricao != null ? diagrama.descricao : '—'}">—</div>
+          </div>
+
+          <div class="mb-3">
+            <div class="toto-detail-label">Dono</div>
+            <div class="toto-detail-value"
+                 th:text="${diagrama.dono != null ? diagrama.dono.nome : '—'}">—</div>
+          </div>
+
+          <div class="mb-3">
+            <div class="toto-detail-label">Equipe</div>
+            <div class="toto-detail-value"
+                 th:text="${diagrama.time != null ? diagrama.time.nome : '—'}">—</div>
+          </div>
+
+          <div class="mb-3">
+            <div class="toto-detail-label">Total de colunas</div>
+            <div class="toto-detail-value"
+                 th:text="${diagrama.particoes != null ? #lists.size(diagrama.particoes) : 0}">0</div>
+          </div>
+        </div>
+
+        <!-- Ações -->
+        <div class="d-flex flex-column gap-2">
+          <a th:href="@{'/diagramas/' + ${diagrama.id} + '/edit'}" class="btn btn-toto-outline w-100">
+            &#9998; Editar Diagrama
+          </a>
+          <form th:action="@{'/diagramas/' + ${diagrama.id} + '/delete'}" method="post"
+                onsubmit="return confirm('Excluir este diagrama e todas as suas colunas?')">
+            <button type="submit" class="btn w-100"
+                    style="background: #FEE2E2; color: #B91C1C; border: 1px solid #FCA5A5; border-radius: 8px; padding: 0.5rem;">
+              &#128465; Excluir Diagrama
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer th:replace="~{baseLayout :: footer}"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

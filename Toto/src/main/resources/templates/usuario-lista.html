@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{baseLayout :: baseHead}"></head>
+<body>
+
+<nav th:replace="~{baseLayout :: navbar}"></nav>
+
+<main>
+  <div class="toto-page-header">
+    <div class="container-xl">
+      <div class="d-flex align-items-start justify-content-between">
+        <div>
+          <h1 class="toto-page-title">Usuários</h1>
+          <p class="toto-page-subtitle">Gerencie as pessoas que têm acesso e tarefas no sistema.</p>
+        </div>
+        <a th:href="@{/usuarios/new}" class="btn btn-toto d-flex align-items-center gap-2">
+          <span>＋</span> Novo Usuário
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-xl py-3">
+    <div th:replace="~{baseLayout :: flashMessages}"></div>
+
+    <div class="row g-3" th:if="${usuarios != null and !usuarios.isEmpty()}">
+      <div class="col-sm-6 col-md-4 col-lg-3" th:each="u : ${usuarios}">
+        <div class="toto-card p-3 d-flex flex-column h-100">
+          
+          <div class="toto-logo-badge mb-3" style="background: #D1FAE5; color: #065F46; font-size: 1.1rem; border-radius: 50%;">
+            👤
+          </div>
+          
+          <h6 class="fw-600 mb-1" th:text="${u.nome}">Nome do Usuário</h6>
+          <p class="text-muted small mb-3 flex-grow-1" style="word-break: break-all;" th:text="${u.email ?: 'Sem e-mail'}">email@exemplo.com</p>
+
+          <div class="d-flex gap-2 mt-auto">
+            <a th:href="@{'/usuarios/' + ${u.id} + '/edit'}" class="btn btn-toto-outline btn-sm flex-grow-1">Editar</a>
+            <form th:action="@{'/usuarios/' + ${u.id} + '/delete'}" method="post" 
+                  onsubmit="return confirm('Excluir este usuário também removerá ele das equipes. Tem certeza?')">
+              <button type="submit" class="toto-action-btn danger" style="font-size: 0.60rem; padding: 2px 8px;"title="Excluir">Excluir</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <a th:href="@{/usuarios/new}" class="toto-card-novo p-3">
+          <span style="font-size: 1.5rem;">＋</span>
+          <span>Novo Usuário</span>
+        </a>
+      </div>
+    </div>
+
+    <div th:if="${usuarios == null or usuarios.isEmpty()}" class="toto-empty">
+      <div class="toto-empty-icon">👤</div>
+      <h5>Nenhum usuário cadastrado</h5>
+      <p class="mb-3">Adicione pessoas para poder atribuí-las a equipes e tarefas.</p>
+      <a th:href="@{/usuarios/new}" class="btn btn-toto">Criar primeiro usuário</a>
+    </div>
+  </div>
+</main>
+
+<footer th:replace="~{baseLayout :: footer}"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

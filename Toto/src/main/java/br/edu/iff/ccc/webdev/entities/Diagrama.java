@@ -31,7 +31,7 @@ public class Diagrama implements Serializable {
     @ManyToOne
     private Equipe time;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "diagrama", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Particao> particoes = new ArrayList<>();
 
     public Diagrama() {

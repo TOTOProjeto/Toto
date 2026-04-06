@@ -9,22 +9,43 @@ import org.springframework.transaction.annotation.Transactional;
 import br.edu.iff.ccc.webdev.dto.EquipeDTO;
 import br.edu.iff.ccc.webdev.entities.Equipe;
 import br.edu.iff.ccc.webdev.entities.Usuario;
+import br.edu.iff.ccc.webdev.exception.EquipeNaoEncontrada;
 import br.edu.iff.ccc.webdev.repository.EquipeRepository;
 import br.edu.iff.ccc.webdev.repository.UsuarioRepository;
 
 @Service
 public class EquipeService {
+
     @Autowired
     private EquipeRepository equipeRepository;
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Transactional
-    public Equipe atualizar(Long id, EquipeDTO dto) {
-        Equipe equipeExistente = equipeRepository.findById(id).orElse(null);
-        if (equipeExistente == null) {
-            return null;
+    public Equipe salvar(EquipeDTO dto) {
+        Equipe equipe = new Equipe();
+        equipe.setNome(dto.getNome());
+        equipe.setDescricao(dto.getDescricao());
+
+        if (dto.getResponsavelId() != null) {
+            Usuario resp = usuarioRepository.findById(dto.getResponsavelId()).orElse(null);
+            equipe.setResponsavel(resp);
         }
+
+        if (dto.getMembrosIds() != null && !dto.getMembrosIds().isEmpty()) {
+            for (Long id : dto.getMembrosIds()) {
+                usuarioRepository.findById(id).ifPresent(equipe::adicionarMembro);
+            }
+        }
+
+        return equipeRepository.save(equipe);
+    }
+
+    @Transactional
+    public Equipe atualizar(Long id, EquipeDTO dto) {
+        Equipe equipeExistente = equipeRepository.findById(id)
+            .orElseThrow(() -> new EquipeNaoEncontrada("Equipe #" + id + " não encontrada."));
 
         equipeExistente.setNome(dto.getNome());
         equipeExistente.setDescricao(dto.getDescricao());
@@ -45,37 +66,18 @@ public class EquipeService {
 
         return equipeRepository.save(equipeExistente);
     }
-    
+
     @Transactional
-    public Equipe salvar(EquipeDTO dto) {
-    Equipe equipe = new Equipe();
-    equipe.setNome(dto.getNome());
-    equipe.setDescricao(dto.getDescricao());
-
-    if (dto.getResponsavelId() != null) {
-        Usuario resp = usuarioRepository.findById(dto.getResponsavelId()).orElse(null);
-        equipe.setResponsavel(resp);
-    }
-
-    if (dto.getMembrosIds() != null && !dto.getMembrosIds().isEmpty()) {
-        for (Long id : dto.getMembrosIds()) {
-            usuarioRepository.findById(id).ifPresent(membro -> {
-                equipe.adicionarMembro(membro);
-            });
-        }
-    }
-    return equipeRepository.save(equipe);
-}
-
     public List<Equipe> listarTodas() {
-    return equipeRepository.findAll();
-}
+        return equipeRepository.findAll();
+    }
 
     public Equipe buscarPorId(Long id) {
-    return equipeRepository.findById(id).orElse(null);
-}
+        return equipeRepository.findById(id)
+            .orElseThrow(() -> new EquipeNaoEncontrada("Equipe #" + id + " não encontrada."));
+    }
 
     public void deletar(Long id) {
-    equipeRepository.deleteById(id);
-}
+        equipeRepository.deleteById(id);
+    }
 }
