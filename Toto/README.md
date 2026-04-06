@@ -105,4 +105,82 @@ Cada quadro representa uma equipe alinhada, colaborando com clareza e propósito
 
 ---
 
+## Índice
+
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Manual de Execução](#manual-de-execução)
+- [Guia de Telas](#guia-de-telas)
+- [Release](#release)
+
+
+## Manual de Execução
+
+### Pré-requisitos
+
+- Java 17 ou superior
+- Maven (ou utilize o `mvnw` incluso no projeto)
+
+### Passos
+
+**1. Clone o repositório:**
+```bash
+git clone https://github.com/TOTOProjeto/Toto.git
+cd Toto
+```
+
+**2. Execute a aplicação:**
+```bash
+./mvnw spring-boot:run
+```
+> No Windows, use `mvnw.cmd spring-boot:run`
+
+**3. Acesse no navegador:**
+```
+http://localhost:8080
+```
+
+**Console do banco H2 (opcional):**
+```
+http://localhost:8080/h2-console
+```
+- JDBC URL: `jdbc:h2:mem:testdb`
+- Usuário: `sa`
+- Senha: *(deixar em branco)*
+
+---
+
+## Guia de Telas
+
+### Listagem de Usuários
+Tela principal de gerenciamento de membros do sistema, com opções de editar e excluir cada usuário.
+
+![Listagem de Usuários](docs/prints/listagem-usuarios.jpeg)
+
+---
+
+### Cadastro de Usuário
+Formulário para criação de novos usuários, com campos de Nome Completo e E-mail.
+
+![Cadastro de Usuário](docs/prints/cadastro-usuario.jpeg)
+
+---
+
+### Erro 404 — Página não encontrada
+Tela customizada exibida quando o usuário acessa uma rota inexistente.
+
+![Erro 404](docs/prints/erro404.jpeg)
+
+---
+
+### Erro 500 — Erro interno do servidor
+Tela customizada exibida quando ocorre um erro inesperado na aplicação.
+
+![Erro 500](docs/prints/erro500.jpeg)
+
+---
+
+## 🔖 Release
+
+[📦 Versão Final v2.0](https://github.com/TOTOProjeto/Toto/releases/tag/v2.0)
+
 **Toto — Gestão de projetos simples, visual e colaborativa.**
