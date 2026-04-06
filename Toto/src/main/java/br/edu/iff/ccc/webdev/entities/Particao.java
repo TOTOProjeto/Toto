@@ -26,7 +26,8 @@ public class Particao implements Serializable {
     @ManyToOne
     private Diagrama diagrama;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tarefa> atividades = new ArrayList<>();
 
     public Particao() {

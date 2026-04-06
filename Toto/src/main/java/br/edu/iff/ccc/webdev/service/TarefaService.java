@@ -56,6 +56,7 @@ public class TarefaService {
             Particao part = particaoRepository.findById(tarefaDTO.getParticaoId())
                 .orElseThrow(() -> new RuntimeException("Particao não encontrada"));
             tarefa.setStatus(part);
+            part.adicionarAtividade(tarefa);
         }
 
         if (tarefaDTO.getLabelsIds() != null && !tarefaDTO.getLabelsIds().isEmpty()) {
@@ -68,16 +69,42 @@ public class TarefaService {
     }
    
     @Transactional
-    public Tarefa atualizar(Long id, TarefaDTO dto) {
-        Tarefa tarefaExistente = tarefaRepository.findById(id).orElse(null);
-        if (tarefaExistente == null) return null;
-        
-        tarefaExistente.setTitulo(dto.getNome());
-        tarefaExistente.setDescricao(dto.getDescricao());
-        tarefaExistente.setPrazo(dto.getPrazo());
-        tarefaExistente.setPrioridade(dto.getPrioridade());
-        return tarefaRepository.save(tarefaExistente);
+public Tarefa atualizar(Long id, TarefaDTO dto) {
+    Tarefa tarefaExistente = tarefaRepository.findById(id).orElse(null);
+    if (tarefaExistente == null) return null;
+
+    tarefaExistente.setTitulo(dto.getNome());
+    tarefaExistente.setDescricao(dto.getDescricao());
+    tarefaExistente.setPrazo(dto.getPrazo());
+    tarefaExistente.setPrioridade(dto.getPrioridade());
+
+    if (dto.getUsuarioId() != null) {
+        Usuario resp = usuarioRepository.findById(dto.getUsuarioId())
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        tarefaExistente.setResponsavel(resp);
+    } else {
+        tarefaExistente.setResponsavel(null);
     }
+
+    if (dto.getEquipeId() != null) {
+        Equipe eqp = equipeRepository.findById(dto.getEquipeId())
+            .orElseThrow(() -> new RuntimeException("Equipe não encontrada"));
+        tarefaExistente.setEquipe(eqp);
+    } else {
+        tarefaExistente.setEquipe(null);
+    }
+
+    if (dto.getParticaoId() != null) {
+        Particao part = particaoRepository.findById(dto.getParticaoId())
+            .orElseThrow(() -> new RuntimeException("Partição não encontrada"));
+        tarefaExistente.setStatus(part);
+        part.adicionarAtividade(tarefaExistente);
+    } else {
+        tarefaExistente.setStatus(null);
+    }
+
+    return tarefaRepository.save(tarefaExistente);
+}
 
     public Tarefa buscarPorIdExcessaoTarefa(Long id) {
     return tarefaRepository.findById(id)
